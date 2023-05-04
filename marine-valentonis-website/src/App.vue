@@ -1,28 +1,45 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import TechTree from './components/TechTree.vue';
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  
+  <div class="main-page-wrapper">
+    
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <RouterView />
+  <div class="techtree-wrapper">
+    <header>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
 
-  <RouterView />
+          <nav class="nav-bar">
+            <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/cv">CV</RouterLink>
+            <RouterLink to="/projects">Projects</RouterLink>
+            <RouterLink to="/passions">Passions</RouterLink>
+            <RouterLink to="/bettertogether">Better Together</RouterLink>
+          </nav>
+      </header>
+      <img class="techtree-image" src="./assets/techtree.webp">
+  </div> 
+ </div>
+
+ 
 </template>
 
 <style scoped>
+.nav-wrapper {
+  height: 100%;
+}
+.main-page-wrapper {
+  display: flex;
+  align-items: center;
+}
 header {
-  line-height: 1.5;
+  line-height: 5rem;
   max-height: 100vh;
 }
 
@@ -39,7 +56,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: white;
 }
 
 nav a.router-link-exact-active:hover {
@@ -60,26 +77,41 @@ nav a:first-of-type {
   header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
   }
 
   .logo {
     margin: 0 2rem 0 0;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
   nav {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
-
     padding: 1rem 0;
-    margin-top: 1rem;
+    margin-top: 7rem;
   }
+}
+.nav-bar {
+  text-align: left;
+  position: absolute;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  flex-direction: column;}
+
+.techtree-wrapper {
+  width: 100%;
+  text-align: center;
+  background: #001a24;
+  background: radial-gradient(#001e26, #040310);
+  border-radius: 6px;
+}
+.techtree-image {    
+  width: 84%;
+  border-radius: 14rem;
+  border: solid 1rem rgb(0, 26, 36, 8%);
 }
 </style>
