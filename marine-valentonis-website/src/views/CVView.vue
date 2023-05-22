@@ -1,7 +1,5 @@
 <template>
   <div class="cv-wrapper">
-    <h1>Marine Valentonis</h1>
-    <p>Software Developer</p>
   </div>
   <div class="social-icons">    
       <img class="social-icon" src="../assets/github.png">

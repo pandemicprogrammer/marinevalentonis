@@ -16,11 +16,11 @@ import TechTree from './components/TechTree.vue';
 
 
           <nav class="nav-bar">
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/cv">CV</RouterLink>
-            <RouterLink to="/projects">Projects</RouterLink>
-            <RouterLink to="/passions">Passions</RouterLink>
-            <RouterLink to="/bettertogether">Better Together</RouterLink>
+            <RouterLink to="/" class="nav-link">Home</RouterLink>
+            <RouterLink to="/cv" class="nav-link">CV</RouterLink>
+            <RouterLink to="/projects" class="nav-link">Projects</RouterLink>
+            <RouterLink to="/passions" class="nav-link">Passions</RouterLink>
+            <RouterLink to="/bettertogether" class="nav-link">Better Together</RouterLink>
           </nav>
       </header>
       <img class="techtree-image" src="./assets/techtree.webp">
@@ -92,6 +92,7 @@ nav a:first-of-type {
   }
 }
 .nav-bar {
+  z-index: 100;
   text-align: left;
   position: absolute;
   display: flex;
@@ -113,5 +114,9 @@ nav a:first-of-type {
   width: 84%;
   border-radius: 14rem;
   border: solid 1rem rgb(0, 26, 36, 8%);
+}
+.nav-link:active,
+.nav-link:focus {
+  font-weight: bold;
 }
 </style>
