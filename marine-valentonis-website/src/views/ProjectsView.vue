@@ -1,6 +1,5 @@
 <template>
   <div class="projects-wrapper">
-    <h1>Projects</h1>
   </div>
 </template>
 

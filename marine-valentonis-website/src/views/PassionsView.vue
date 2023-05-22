@@ -1,6 +1,5 @@
 <template>
   <div class="passions-wrapper">
-    <h1>Passions</h1>
   </div>
 </template>
 
