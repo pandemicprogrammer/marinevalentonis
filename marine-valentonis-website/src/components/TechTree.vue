@@ -10,6 +10,7 @@
  
  <style>
 .techtree-wrapper {
+  position: absolute;
   width: 100%;
   text-align: center;
   background: #001a24;
