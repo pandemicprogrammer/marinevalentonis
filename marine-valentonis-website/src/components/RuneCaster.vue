@@ -14,7 +14,7 @@
       <div v-html="output" class="output"></div>
       <div class="runes">
         <div v-for="rune in castedRunes" :key="rune" class="rune">
-        <img class="rune-image" :src="'src/assets/images/runes/' + rune.toLowerCase() + '.png'" />
+        <img class="rune-image" :class="{ inverted: inverted }" :src="'src/assets/images/runes/' + rune.toLowerCase() + '.png'" />
   <div class="rune-name">{{ rune }}</div>
 </div>
 
@@ -182,6 +182,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 20px;
+  
 }
 
 .rune {
@@ -189,6 +190,8 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 10px;
+    border: black 3px solid;
+    border-radius: 37px;
 }
 
 .rune-image {
@@ -202,5 +205,7 @@ export default {
   text-align: center;
   color: darkslategray;
 }
-
+.inverted {
+  transform: scaleX(-1);
+}
 </style>
