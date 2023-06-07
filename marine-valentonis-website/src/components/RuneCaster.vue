@@ -13,18 +13,19 @@
       <button class="btn" @click="castRune">Cast Rune</button>
       <div v-html="output" class="output"></div>
       <div class="runes">
-       <div v-for="rune in castedRunes" :key="rune" class="rune">
-        <div class="rune-image" :style="{ backgroundImage: `url(${getRuneImageUrl(rune)})` }"></div>
-        <div class="rune-name">{{ rune }}</div>
+        <div v-for="rune in castedRunes" :key="rune" class="rune">
+        <img class="rune-image" :src="'src/assets/images/runes/' + rune.toLowerCase() + '.png'" />
+  <div class="rune-name">{{ rune }}</div>
+</div>
+
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 
 <script>
-import RuneIcon from './RuneIcon.vue';
+// import RuneIcon from './RuneIcon.vue';
 // Dictionary of Runes, Meanings, and Inverted Meanings
 const runes = {
   Fehu: ['Wealth, prosperity', 'Loss of wealth, failure'],
