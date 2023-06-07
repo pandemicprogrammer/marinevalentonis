@@ -16,13 +16,16 @@
                 <div class="runes">
                 <div v-for="rune in castedRunes" :key="rune" class="rune">
                 <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
+                <img class="labradorite-image" src="src/static/images/runes/labradorite.png" alt="Labradorite Stone">
                 <div class="rune-name">
                     {{ rune.name }}
                     <sub v-if="rune.inverted">i</sub>
                 </div>
                 </div>
                 
-            </div>   <div v-html="output" class="output">
+            </div>  
+            
+            <div v-html="output" class="output">
         </div></div>
             
         </div>
@@ -206,21 +209,23 @@ export default {
     flex-direction: column;
     align-items: center;
     margin: 10px;
-    border: #dbdbdb 3px solid;
-    border-radius: 37px;
 }
 
 .rune-image {
-  width: 100px;
-  height: 100px;
-  opacity: 50%;
+    margin-top: 2rem;
+    margin-right: 0.5rem;
+    z-index: 100;
+    width: 100px;
+    height: 100px;
+    filter: invert(100%);
+    opacity: 90%;
 }
 
 .rune-name {
-    margin-top: 5px;
+    margin-top: 1rem;
     font-size: 130%;
     text-align: center;
-    color: darkslategray;
+    color: white;
 }
 .inverted {
   transform: scaleX(-1);
@@ -248,5 +253,11 @@ export default {
     padding: 1rem;
     font-size: 80%;
     height: 10rem;
+}
+.labradorite-image {
+    position: absolute;
+    width: 13rem;
+    margin-top: -1rem;
+    margin-left: -1rem;
 }
 </style>
