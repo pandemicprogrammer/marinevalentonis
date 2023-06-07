@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Rune Casting</h1>
+    <h1 class="title">Rune Cast</h1>
     <div class="card">
       <label for="numRunes">Number of Runes:</label>
       <select id="numRunes" v-model="selectedNumRunes">
@@ -10,48 +10,60 @@
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
-      <button class="btn" @click="castRune">Cast Rune</button>
-      <div v-html="output" class="output"></div>
-      <div class="runes">
-       <div v-for="rune in castedRunes" :key="rune" class="rune">
-        <div class="rune-image" :style="{ backgroundImage: `url(${getRuneImageUrl(rune)})` }"></div>
-        <div class="rune-name">{{ rune }}</div>
+      <button class="cast-button btn" @click="castRune">Cast Runes</button>
+
+      <div class="results-wrapper">
+        <div class="runes">
+          <div v-for="rune in castedRunes" :key="rune" class="rune">
+            <template v-if="rune.name.toLowerCase() !== 'unknowable'">
+              <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
+            </template>
+            <img v-else class="placeholder-image" src="src/static/images/placeholder.png" alt="Placeholder Image" />
+            <img class="labradorite-image" src="src/static/images/runes/labradorite.png" alt="Labradorite Stone">
+            <h1 class="rune-name">
+              {{ rune.name }}
+              <sub v-if="rune.inverted">i</sub>
+            </h1>
+          </div>
         </div>
+        <div v-html="output" class="output"></div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
-import RuneIcon from './RuneIcon.vue';
+// import RuneIcon from './RuneIcon.vue';
 // Dictionary of Runes, Meanings, and Inverted Meanings
-const runes = {
-  Fehu: ['Wealth, prosperity', 'Loss of wealth, failure'],
-  Uruz: ['Physical strength, speed', 'Weakness, inconsistency'],
-  Thurisaz: ['Force, chaos', 'Destruction, defenselessness'],
+  const runes = {
+  Algiz: ['Protector, Ally, Need For Defense', 'Hidden Danger, Poor Defense, Pretense Of Power'],
   Ansuz: ['Wisdom, communication', 'Misunderstanding, manipulation'],
-  Raidho: ['Travel, movement', 'Unexpected change, delay'],
-  Kenaz: ['Knowledge, illumination', 'Ignorance, instability'],
-  Gebo: ['Gifts, exchange', 'Obligation, ingratitude'],
-  Wunjo: ['Joy, harmony', 'Sorrow, strife'],
-  Hagalaz: ['Disruption, change', 'Stagnation, loss of power'],
-  Nauthiz: ['Need, resistance', 'Impatience, compulsion'],
-  Isa: ['Stillness, isolation', 'Boredom, loneliness'],
-  Jera: ['Harvest, reward', 'Indolence, missed opportunity'],
-  Eihwaz: ['Endurance, defense', 'Confusion, destruction'],
-  Perthro: ['Mystery, chance', 'Stasis, lack of change'],
-  Algiz: ['Protection, growth', 'Hidden danger, loss of shield'],
-  Sowilo: ['Energy, life force', 'Weakness, lack of energy'],
-  Tiwaz: ['Justice, sacrifice', 'Injustice, lack of conviction'],
   Berkano: ['Birth, fertility', 'Sterility, stagnation'],
-  Ehwaz: ['Harmony, teamwork', 'Discord, betrayal'],
-  Mannaz: ['Humanity, social order', 'Isolation, selfishness'],
-  Laguz: ['Flow, life energy', 'Fear, lack of creativity'],
-  Ingwaz: ['Potential, fertility', 'Impotence, lack of action'],
   Dagaz: ['Breakthrough, clarity', 'Confusion, lack of vision'],
-  Othala: ['Inheritance, home', 'Loss, lack of direction']
+  Ehwaz: ['Harmony, teamwork', 'Discord, betrayal'],
+  Eihwaz: ['Endurance, defense', 'Confusion, destruction'],
+  Fehu: ['Wealth, prosperity', 'Loss of wealth, failure'],
+  Gebo: ['Gifts, exchange', 'Obligation, ingratitude'],
+  Hagalaz: ['Disruption, change', 'Stagnation, loss of power'],
+  Ingwaz: ['Potential, fertility', 'Impotence, lack of action'],
+  Isa: ['Stillness, isolation', 'Boredom, loneliness'],
+  Jera: ['Harvest, Reward, Plenty', ''],
+  Kenaz: ['Knowledge, illumination', 'Ignorance, instability'],
+  Laguz: ['Flow, life energy', 'Fear, lack of creativity'],
+  Mannaz: ['Humanity, Social Order, Self Identity, Social Perception', 'Isolation, Selfishness, Social Schism, Self-Work'],
+  Nauthiz: ['Need, resistance', 'Impatience, compulsion'],
+  Othala: ['Inheritance, home', 'Loss, lack of direction'],
+  Perthro: ['Mystery, chance', 'Stasis, lack of change'],
+  Raidho: ['Travel, movement', 'Unexpected change, delay'],
+  Sowilo: ['Energy, life force', 'Weakness, lack of energy'],
+  Thurisaz: ['Force, Change Through Chaos, Sexual Tension', 'Undefended, Betrayal, Inability To Start Over'],
+  Tiwaz: ['Victory, Success, Unexpected Costs, Breakthrough', 'Cost Of Success Too Great, Inability To Judge Effectively'],
+  Uruz: ['Physical strength, speed', 'Weakness, inconsistency'],
+  Wunjo: ['Joy, harmony', 'Sorrow, strife'],
+  Unknowable: ['That which cannot be known until the path is traveled.', '']
 };
+
+
 
 // Dictionary of some basic rune relations for demonstration
 const runeRelations = new Map([
@@ -90,36 +102,49 @@ export default {
     },
   
   methods: {
-   async getRuneImageUrl(rune) {
-    const imageName = `${rune.toLowerCase()}.png`;
-    const module = await import(`./assets/images/runes/${imageName}`);
-    return module.default;
+  getRuneImageUrl(rune) {
+  if (rune.toLowerCase() === 'unknowable') {
+    return null; // Return null for "Unknowable" rune
+  }
+
+  const imageName = `src/static/images/runes/${rune.toLowerCase()}.png`;
+  return imageName;
 },
-    castRune() {
+
+castRune() {
   const numRunes = parseInt(this.selectedNumRunes, 10); // Convert selectedNumRunes to an integer
 
   this.castedRunes = []; // Reset the castedRunes array
 
   let output = '';
-  const relationFound = new Set(); // Track which rune relations have been found in the current cast
+  const relationFound = new Set();
 
   for (let i = 0; i < numRunes; i++) {
     const rune = Object.keys(runes)[Math.floor(Math.random() * Object.keys(runes).length)];
+
     const meanings = runes[rune];
     const inverted = Math.round(Math.random());
     const meaning = meanings[inverted];
-    this.castedRunes.push(rune);
+    const runeObject = {
+      name: rune,
+      inverted: inverted === 1,
+    };
+    this.castedRunes.push(runeObject);
 
-    if (inverted) {
-      output += `Rune: ${rune} (inverted)<br>Meaning: ${meaning}<br><br>`;
-    } else {
-      output += `Rune: ${rune}<br>Meaning: ${meaning}<br><br>`;
-    }
+    const runeOutput = `<div class="rune-wrapper">
+                          <div class="rune-output">
+                            <h1 class="output-name">${rune}</h1> 
+                            ${runeObject.inverted ? '<p class="output-inverted">inverted</p>' : ''}
+                            <br>
+                            <p class="output-meaning"> ${meaning}</p>
+                          </div>
+                        </div>`;
+    output += runeOutput;
   }
 
   for (let i = 0; i < this.castedRunes.length; i++) {
     for (let j = i + 1; j < this.castedRunes.length; j++) {
-      const relationPair = [this.castedRunes[i], this.castedRunes[j]];
+      const relationPair = [this.castedRunes[i].name, this.castedRunes[j].name];
       relationPair.sort();
       const relation = runeRelations.get(relationPair);
       if (relation) {
@@ -135,13 +160,37 @@ export default {
 
   this.output = output;
 }
-
   }
 };
 </script>
 
 
 <style>
+@font-face {
+  font-family: 'Blankers';
+  src: url('src/static/fonts/Blankers.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
+@font-face {
+  font-family: 'Ashfiana Regular';
+  src: url('src/static/fonts/Ashfiana\ Regular.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
+@font-face {
+  font-family: 'Fashion Fetish';
+  src: url('src/static/fonts/Fashion\ Fetish\ Light.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
+@font-face {
+  font-family: 'Fogato';
+  src: url('src/static/fonts/Fogato\ DEMO.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
+@font-face {
+  font-family: 'WishShore';
+  src: url('src/static/fonts/WishShore.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -162,7 +211,6 @@ export default {
 }
 
 .btn {
-  background-color: #4caf50;
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -174,32 +222,85 @@ export default {
 .output {
   margin-top: 20px;
   font-size: 16px;
-  color: darkgray;
+  color: #232425;
 }
-.runes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
+.runes {    
+    border-radius: 4px;
+    background: #507878;
+    border: 3px #57a8a8 solid;
+    justify-content: center;
+    margin-top: 20px;
+  
 }
 
 .rune {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
+    scale: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
 }
 
 .rune-image {
-  width: 100px;
-  height: 100px;
+    margin-top: 2rem;
+    margin-right: 0.5rem;
+    z-index: 100;
+    width: 100px;
+    height: 100px;
+    filter: invert(100%);
+    opacity: 90%;
 }
 
 .rune-name {
-  margin-top: 5px;
-  font-size: 12px;
-  text-align: center;
-  color: darkslategray;
+    margin-top: 1rem;
+    font-size: 200%;
+    text-align: center;
+    color: white;
 }
-
+.inverted {
+  transform: scaleX(-1);
+  color: midnightblue;
+}
+#numRunes {
+    width: 4rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: sans-serif;
+    color: darkslategray;
+}
+.cast-button {
+    background: #507878;
+    padding: 1rem;
+    font-size: 2rem;
+    margin: 2rem;
+    font-weight: 700;
+    font-family: 'Ashfiana Regular';
+}
+.results-wrapper {
+    display: flex;
+}
+.rune-output {
+    padding: 1rem;
+    font-size: 80%;
+    height: 13rem;
+}
+.labradorite-image {
+    position: absolute;
+    width: 13rem;
+    margin-top: -1rem;
+    margin-left: -1rem;
+}
+.output-inverted {
+    font-style: italic;
+    font-weight: bold;
+    font-family: 'Fashion Fetish';
+}
+.output-name, .rune-name {
+    font-family: 'WishShore';
+}
+.output-meaning {
+    font-family: 'Blankers';
+    font-size: 140%;
+    margin-top: -1rem;
+}
 </style>
