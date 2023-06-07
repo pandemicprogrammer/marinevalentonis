@@ -3,7 +3,7 @@
   <div> 
   <div class="techtree-wrapper">
 
-    <img class="techtree-image" src="../assets/techtree.webp">
+    <img class="techtree-image" src="../static/techtree.webp">
 </div>
   </div>
   </template>

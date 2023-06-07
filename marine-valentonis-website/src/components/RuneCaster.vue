@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Rune Casting</h1>
+    <h1 class="title">Rune Cast</h1>
     <div class="card">
       <label for="numRunes">Number of Runes:</label>
       <select id="numRunes" v-model="selectedNumRunes">
@@ -10,52 +10,56 @@
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
-      <button class="btn" @click="castRune">Cast Rune</button>
-      <div v-html="output" class="output">
-    </div>
-      
-      <div class="runes">
-       <div v-for="rune in castedRunes" :key="rune" class="rune">
-        <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
-        <div class="rune-name">{{ rune.name }}</div>
-        </div>
+      <button class="cast-button btn" @click="castRune">Cast Runes</button>
 
-
+            <div class="results-wrapper">   
+                <div class="runes">
+                <div v-for="rune in castedRunes" :key="rune" class="rune">
+                <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
+                <div class="rune-name">
+                    {{ rune.name }}
+                    <sub v-if="rune.inverted">i</sub>
+                </div>
+                </div>
+                
+            </div>   <div v-html="output" class="output">
+        </div></div>
+            
         </div>
-      </div>
-    </div>
+  </div>
 </template>
-
 
 <script>
 // import RuneIcon from './RuneIcon.vue';
 // Dictionary of Runes, Meanings, and Inverted Meanings
-const runes = {
-  Fehu: ['Wealth, prosperity', 'Loss of wealth, failure'],
-  Uruz: ['Physical strength, speed', 'Weakness, inconsistency'],
-  Thurisaz: ['Force, chaos', 'Destruction, defenselessness'],
+  const runes = {
+  Algiz: ['Protection, growth', 'Hidden danger, loss of shield'],
   Ansuz: ['Wisdom, communication', 'Misunderstanding, manipulation'],
-  Raidho: ['Travel, movement', 'Unexpected change, delay'],
-  Kenaz: ['Knowledge, illumination', 'Ignorance, instability'],
+  Berkano: ['Birth, fertility', 'Sterility, stagnation'],
+  Dagaz: ['Breakthrough, clarity', 'Confusion, lack of vision'],
+  Ehwaz: ['Harmony, teamwork', 'Discord, betrayal'],
+  Eihwaz: ['Endurance, defense', 'Confusion, destruction'],
+  Fehu: ['Wealth, prosperity', 'Loss of wealth, failure'],
   Gebo: ['Gifts, exchange', 'Obligation, ingratitude'],
-  Wunjo: ['Joy, harmony', 'Sorrow, strife'],
   Hagalaz: ['Disruption, change', 'Stagnation, loss of power'],
-  Nauthiz: ['Need, resistance', 'Impatience, compulsion'],
+  Ingwaz: ['Potential, fertility', 'Impotence, lack of action'],
   Isa: ['Stillness, isolation', 'Boredom, loneliness'],
   Jera: ['Harvest, reward', 'Indolence, missed opportunity'],
-  Eihwaz: ['Endurance, defense', 'Confusion, destruction'],
-  Perthro: ['Mystery, chance', 'Stasis, lack of change'],
-  Algiz: ['Protection, growth', 'Hidden danger, loss of shield'],
-  Sowilo: ['Energy, life force', 'Weakness, lack of energy'],
-  Tiwaz: ['Justice, sacrifice', 'Injustice, lack of conviction'],
-  Berkano: ['Birth, fertility', 'Sterility, stagnation'],
-  Ehwaz: ['Harmony, teamwork', 'Discord, betrayal'],
-  Mannaz: ['Humanity, social order', 'Isolation, selfishness'],
+  Kenaz: ['Knowledge, illumination', 'Ignorance, instability'],
   Laguz: ['Flow, life energy', 'Fear, lack of creativity'],
-  Ingwaz: ['Potential, fertility', 'Impotence, lack of action'],
-  Dagaz: ['Breakthrough, clarity', 'Confusion, lack of vision'],
-  Othala: ['Inheritance, home', 'Loss, lack of direction']
+  Mannaz: ['Humanity, social order', 'Isolation, selfishness'],
+  Nauthiz: ['Need, resistance', 'Impatience, compulsion'],
+  Othala: ['Inheritance, home', 'Loss, lack of direction'],
+  Perthro: ['Mystery, chance', 'Stasis, lack of change'],
+  Raidho: ['Travel, movement', 'Unexpected change, delay'],
+  Sowilo: ['Energy, life force', 'Weakness, lack of energy'],
+  Thurisaz: ['Force, chaos', 'Destruction, defenselessness'],
+  Tiwaz: ['Justice, sacrifice', 'Injustice, lack of conviction'],
+  Uruz: ['Physical strength, speed', 'Weakness, inconsistency'],
+  Wunjo: ['Joy, harmony', 'Sorrow, strife'],
+  Unknowable: ['That which cannot be known until the path is traveled.', '']
 };
+
 
 // Dictionary of some basic rune relations for demonstration
 const runeRelations = new Map([
@@ -95,7 +99,7 @@ export default {
   
   methods: {
   getRuneImageUrl(rune) {
-  const imageName = `src/assets/images/runes/${rune.toLowerCase()}.png`;
+  const imageName = `src/static/images/runes/${rune.toLowerCase()}.png`;
   return imageName;
 },
 
@@ -106,7 +110,7 @@ export default {
   this.castedRunes = []; // Reset the castedRunes array
 
   let output = '';
-  const relationFound = new Set(); // Track which rune relations have been found in the current cast
+  const relationFound = new Set();
 
   for (let i = 0; i < numRunes; i++) {
     const rune = Object.keys(runes)[Math.floor(Math.random() * Object.keys(runes).length)];
@@ -115,15 +119,18 @@ export default {
     const meaning = meanings[inverted];
     const runeObject = {
       name: rune,
-      inverted: inverted === 1, // Set the inverted property based on the randomly generated value
+      inverted: inverted === 1,
     };
     this.castedRunes.push(runeObject);
 
-    if (runeObject.inverted) {
-      output += `Rune: ${rune} (inverted)<br>Meaning: ${meaning}<br><br>`;
-    } else {
-      output += `Rune: ${rune}<br>Meaning: ${meaning}<br><br>`;
-    }
+    const runeOutput = `<div class="rune-wrapper">
+                          <div class="rune-output">
+                            Rune: ${rune}${runeObject.inverted ? ' (inverted)' : ''}
+                            <br>
+                            Meaning: ${meaning}
+                          </div>
+                        </div>`;
+    output += runeOutput;
   }
 
   for (let i = 0; i < this.castedRunes.length; i++) {
@@ -171,7 +178,6 @@ export default {
 }
 
 .btn {
-  background-color: #4caf50;
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -183,38 +189,64 @@ export default {
 .output {
   margin-top: 20px;
   font-size: 16px;
-  color: darkgray;
+  color: #232425;
 }
-.runes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
+.runes {    
+    border-radius: 4px;
+    background: #507878;
+    border: 3px #57a8a8 solid;
+    justify-content: center;
+    margin-top: 20px;
   
 }
 
 .rune {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-    border: black 3px solid;
+    scale: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    border: #dbdbdb 3px solid;
     border-radius: 37px;
 }
 
 .rune-image {
   width: 100px;
   height: 100px;
+  opacity: 50%;
 }
 
 .rune-name {
-  margin-top: 5px;
-  font-size: 12px;
-  text-align: center;
-  color: darkslategray;
+    margin-top: 5px;
+    font-size: 130%;
+    text-align: center;
+    color: darkslategray;
 }
 .inverted {
   transform: scaleX(-1);
   color: midnightblue;
+}
+#numRunes {
+    width: 4rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: sans-serif;
+    color: darkslategray;
+}
+.cast-button {
+    background: #507878;
+    padding: 1rem;
+    font-size: 2rem;
+    margin: 2rem;
+    font-weight: 700;
+    font-family: sans-serif;
+}
+.results-wrapper {
+    display: flex;
+}
+.rune-output {
+    padding: 1rem;
+    font-size: 80%;
+    height: 10rem;
 }
 </style>

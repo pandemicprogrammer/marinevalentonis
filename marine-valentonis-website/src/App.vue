@@ -19,7 +19,7 @@ import { RouterLink, RouterView } from 'vue-router'
       </header>
       <div class="page-view-wrapper">
         <RouterView />
-        <img class="tech-tree"  src="./assets/techtree.webp" alt="">
+        <img class="tech-tree"  src="./static/techtree.webp" alt="">
       </div>
     </div>
    
@@ -29,7 +29,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
-@import '@/assets/main.css';
+@import '@/static/main.css';
 .static-content {
   width: -webkit-fill-available;
   display: flex;
