@@ -1,5 +1,6 @@
 <template>
   <div class="cv-wrapper">
+    <h1>side column timeline style with projects, interactive hovers that link to individual project page</h1>
   </div>
   <div class="social-icons">    
       <img class="social-icon" src="../assets/github.png">

@@ -1,58 +1,50 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import TechTree from './components/TechTree.vue';
+// import TechTree from './components/TechTree.vue';
 
 </script>
 
 <template>
   
   <div class="main-page-wrapper">
-    
-
-    <RouterView />
-  <div class="techtree-wrapper">
-    <header>
-
-
+    <div class="static-content">
+       <header class="main-header">
           <nav class="nav-bar">
-            <RouterLink to="/" class="nav-link">Home</RouterLink>
-            <RouterLink to="/cv" class="nav-link">CV</RouterLink>
-            <RouterLink to="/projects" class="nav-link">Projects</RouterLink>
-            <RouterLink to="/passions" class="nav-link">Passions</RouterLink>
-            <RouterLink to="/bettertogether" class="nav-link">Better Together</RouterLink>
+            <RouterLink to="/" class="nav-link home-link">Home</RouterLink>
+            <RouterLink to="/cv" class="nav-link cv-link">CV</RouterLink>
+            <RouterLink to="/projects" class="nav-link projects-link">Projects</RouterLink>
+            <RouterLink to="/passions" class="nav-link passions-link">Passions</RouterLink>
+            <RouterLink to="/bettertogether" class="nav-link bettertogether-link">Better Together</RouterLink>
           </nav>
       </header>
-      <img class="techtree-image" src="./assets/techtree.webp">
-  </div> 
+      <div class="page-view-wrapper">
+        <RouterView />
+        <img class="tech-tree"  src="./assets/techtree.webp" alt="">
+      </div>
+    </div>
+   
  </div>
 
  
 </template>
 
 <style scoped>
+@import '@/assets/main.css';
+.static-content {
+  width: -webkit-fill-available;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+}
+.tech-tree {
+  width:75%;
+}
 .nav-wrapper {
   height: 100%;
 }
-.main-page-wrapper {
-  display: flex;
-  align-items: center;
-}
-header {
-  line-height: 5rem;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 nav {
-  width: 100%;
-  font-size: 12px;
+  width: 75%;
   text-align: center;
-  margin-top: 2rem;
 }
 
 nav a.router-link-exact-active {
@@ -66,7 +58,6 @@ nav a.router-link-exact-active:hover {
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
 }
 
 nav a:first-of-type {
@@ -75,7 +66,6 @@ nav a:first-of-type {
 
 @media (min-width: 1024px) {
   header {
-    display: flex;
     place-items: center;
   }
 
@@ -85,23 +75,17 @@ nav a:first-of-type {
 
   nav {
     text-align: left;
-    margin-left: -1rem;
     font-size: 1rem;
-    padding: 1rem 0;
-    margin-top: 7rem;
+    
   }
 }
 .nav-bar {
+  font-size: 50%;
   z-index: 100;
-  text-align: left;
-  position: absolute;
+  text-align: center;
   display: flex;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  flex-direction: column;}
+  justify-content: space-evenly;
+}
 
 .techtree-wrapper {
   width: 100%;
@@ -114,6 +98,11 @@ nav a:first-of-type {
   width: 84%;
   border-radius: 14rem;
   border: solid 1rem rgb(0, 26, 36, 8%);
+}
+.nav-link {
+  font-family: 'Blankers';
+  font-size: 200%;
+  white-space: nowrap;
 }
 .nav-link:active,
 .nav-link:focus {
