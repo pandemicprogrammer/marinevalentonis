@@ -11,12 +11,15 @@
         <option value="5">5</option>
       </select>
       <button class="btn" @click="castRune">Cast Rune</button>
-      <div v-html="output" class="output"></div>
+      <div v-html="output" class="output">
+    </div>
+      
       <div class="runes">
-        <div v-for="rune in castedRunes" :key="rune" class="rune">
-        <img class="rune-image" :class="{ inverted: inverted }" :src="'src/assets/images/runes/' + rune.toLowerCase() + '.png'" />
-  <div class="rune-name">{{ rune }}</div>
-</div>
+       <div v-for="rune in castedRunes" :key="rune" class="rune">
+        <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
+        <div class="rune-name">{{ rune.name }}</div>
+        </div>
+
 
         </div>
       </div>
@@ -91,11 +94,12 @@ export default {
     },
   
   methods: {
-   async getRuneImageUrl(rune) {
-    const imageName = `${rune.toLowerCase()}.png`;
-    const module = await import(`./assets/images/runes/${imageName}`);
-    return module.default;
+  getRuneImageUrl(rune) {
+  const imageName = `src/assets/images/runes/${rune.toLowerCase()}.png`;
+  return imageName;
 },
+
+
     castRune() {
   const numRunes = parseInt(this.selectedNumRunes, 10); // Convert selectedNumRunes to an integer
 
@@ -109,9 +113,13 @@ export default {
     const meanings = runes[rune];
     const inverted = Math.round(Math.random());
     const meaning = meanings[inverted];
-    this.castedRunes.push(rune);
+    const runeObject = {
+      name: rune,
+      inverted: inverted === 1, // Set the inverted property based on the randomly generated value
+    };
+    this.castedRunes.push(runeObject);
 
-    if (inverted) {
+    if (runeObject.inverted) {
       output += `Rune: ${rune} (inverted)<br>Meaning: ${meaning}<br><br>`;
     } else {
       output += `Rune: ${rune}<br>Meaning: ${meaning}<br><br>`;
@@ -120,7 +128,7 @@ export default {
 
   for (let i = 0; i < this.castedRunes.length; i++) {
     for (let j = i + 1; j < this.castedRunes.length; j++) {
-      const relationPair = [this.castedRunes[i], this.castedRunes[j]];
+      const relationPair = [this.castedRunes[i].name, this.castedRunes[j].name];
       relationPair.sort();
       const relation = runeRelations.get(relationPair);
       if (relation) {
@@ -207,5 +215,6 @@ export default {
 }
 .inverted {
   transform: scaleX(-1);
+  color: midnightblue;
 }
 </style>
