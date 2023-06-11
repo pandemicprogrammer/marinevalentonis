@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import RuneCaster from '@/components/RuneCaster.vue';
-// import TechTree from './components/TechTree.vue';
 
-</script><template>
+</script>
+<template>
   <div class="projects-view-wrapper">
     <RuneCaster/>
     <div class="projects-nav">

@@ -7,6 +7,8 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   
   <div class="main-page-wrapper">
+    <img class="tech-tree"  src="./static/techtree.webp" alt="">
+
     <div class="static-content">
        <header class="main-header">
           <nav class="nav-bar">
@@ -19,7 +21,6 @@ import { RouterLink, RouterView } from 'vue-router'
       </header>
       <div class="page-view-wrapper">
         <RouterView />
-        <img class="tech-tree"  src="./static/techtree.webp" alt="">
       </div>
     </div>
    
@@ -37,7 +38,8 @@ import { RouterLink, RouterView } from 'vue-router'
   flex-flow: column;
 }
 .tech-tree {
-  width:75%;
+  width:100%;
+  position: fixed;
 }
 .nav-wrapper {
   height: 100%;

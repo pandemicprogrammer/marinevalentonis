@@ -1,9 +1,14 @@
+
+<script setup lang="ts">
+import InputLog from '@/components/InputLog.vue';
+</script>
+
 <template>
   <div class="cv-wrapper">
     <h1>side column timeline style with projects, interactive hovers that link to individual project page</h1>
   </div>
+  <InputLog />
   <div class="social-icons">    
-      <img class="social-icon" src="../static/github.png">
 
 </div>
 
