@@ -1,13 +1,16 @@
 <template>
-  <div class="services-list">
-    <h2>Our Development Services</h2>
+  <div class="services-page-wrapper">
+    <div class="services-list">
+    <h2 class="service-page-title">Services</h2>
     <ul>
       <li v-for="service in services" :key="service.id">
-        <h3>{{ service.title }}</h3>
-        <p>{{ service.description }}</p>
+        <h3 class="service-title">{{ service.title }}</h3>
+        <p class="service-description">{{ service.description }}</p>
       </li>
     </ul>
   </div>
+  </div>
+  
 </template>
 
 <script>
@@ -58,11 +61,18 @@ export default {
 
 <style scoped>
 .services-list {
+  z-index: 2;
   padding: 2em;
+  color:white;
+}
+.services-list li:nth-child(odd) {
+  text-align: right;
 }
 
 .services-list h2 {
   font-size: 2em;
+  text-align: center;
+  z-index: 2;
 }
 
 .services-list ul {
@@ -77,5 +87,33 @@ export default {
 .services-list h3 {
   font-size: 1.5em;
   margin-bottom: 0.5em;
+}
+.services-page-wrapper {
+  background-color: rgb(0, 30, 38, .95);
+}
+.service-title {
+  font-size: 150%;
+}
+.service-page-title {
+  font-size: 260%;
+}
+.service-page-title, .service-title {
+  font-family: 'WishShore';
+  letter-spacing: 1px;
+}
+.services-page-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+  background-color: rgb(0, 30, 38);
+  z-index: 2;
+}
+.service-description {
+  font-size: 80%;
+  font-family: 'Ashfiana Regular';
 }
 </style>

@@ -31,6 +31,12 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped>
 @import '@/static/main.css';
 
+.main-page-wrapper {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 .main-header {
   width: 100%;
 }
@@ -76,21 +82,6 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
-  header {
-    place-items: center;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    font-size: 1rem;
-    
-  }
-}
 .nav-bar {
   font-size: 100%;
   z-index: 100;

@@ -13,17 +13,4 @@ import Collapsible from '@/components/Collapsible.vue';
 </template>
 
 <style>
-.projects-nav {
-  height: 100vh;
-  justify-content: space-evenly;
-  display: flex;
-  flex-flow: column;
-}
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
 </style>
