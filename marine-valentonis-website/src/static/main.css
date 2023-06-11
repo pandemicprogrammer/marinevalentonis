@@ -1,12 +1,31 @@
 @import './base.css';
 
+
 @font-face {
   font-family: 'Blankers';
-  src: url('./fonts/Blankers.ttf') format('Blankers')      
+  src: url('src/static/fonts/Blankers.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
 }
-/* 
-url('./fonts/Blankers.ttf') format('Blankers'),
-      url('./fonts/Fashion\ Fetish\ Light.ttf') format('Fashion Fetish'),  Add other font properties if needed */
+@font-face {
+  font-family: 'Ashfiana Regular';
+  src: url('src/static/fonts/Ashfiana\ Regular.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
+@font-face {
+  font-family: 'Fashion Fetish';
+  src: url('src/static/fonts/Fashion\ Fetish\ Light.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
+@font-face {
+  font-family: 'Fogato';
+  src: url('src/static/fonts/Fogato\ DEMO.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
+@font-face {
+  font-family: 'WishShore';
+  src: url('src/static/fonts/WishShore.ttf') format('truetype');
+  /* Add additional font variations (e.g., bold, italic) if available */
+}
 #app {
   margin: 0 auto;
   font-weight: normal;
