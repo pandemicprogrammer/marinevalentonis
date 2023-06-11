@@ -1,39 +1,39 @@
 <template>
-  <div class="container">
-    <h1 class="title">Rune Cast</h1>
-    <div class="card">
-      <label for="numRunes">Number of Runes:</label>
-      <select id="numRunes" v-model="selectedNumRunes">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <button class="cast-button btn" @click="castRune">Cast Runes</button>
+  <div>
+      <div class="container">
+        <div class="card">
+          <select id="numRunes" v-model="selectedNumRunes">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button class="cast-button btn" @click="castRune">Cast Runes</button>
 
-      <div class="results-wrapper">
-        <div class="runes">
-          <div v-for="rune in castedRunes" :key="rune" class="rune">
-            <template v-if="rune.name.toLowerCase() !== 'unknowable'">
-              <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
-            </template>
-            <img v-else class="placeholder-image" src="src/static/images/placeholder.png" alt="Placeholder Image" />
-            <img class="labradorite-image" src="src/static/images/runes/labradorite.png" alt="Labradorite Stone">
-            <h1 class="rune-name">
-              {{ rune.name }}
-              <sub v-if="rune.inverted">i</sub>
-            </h1>
+          <div class="results-wrapper">
+            <div class="runes">
+              <div v-for="rune in castedRunes" :key="rune" class="rune">
+                <template v-if="rune.name.toLowerCase() !== 'unknowable'">
+                  <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
+                </template>
+                <img v-else class="placeholder-image" src="src/static/images/placeholder.png" alt="Placeholder Image" />
+                <img class="labradorite-image" src="src/static/images/runes/labradorite.png" alt="Labradorite Stone">
+                <h1 class="rune-name">
+                  {{ rune.name }}
+                  <sub v-if="rune.inverted">i</sub>
+                </h1>
+              </div>
+            </div>
+            <div v-html="output" class="output"></div>
           </div>
         </div>
-        <div v-html="output" class="output"></div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
-// import RuneIcon from './RuneIcon.vue';
+import Collapsible from './Collapsible.vue'; // Assuming the above component is in a separate file
 // Dictionary of Runes, Meanings, and Inverted Meanings
   const runes = {
   Algiz: ['Protector, Ally, Need For Defense', 'Hidden Danger, Poor Defense, Pretense Of Power'],
@@ -101,6 +101,9 @@ export default {
     };
     },
   
+  components: {
+    Collapsible
+  },
   methods: {
   getRuneImageUrl(rune) {
   if (rune.toLowerCase() === 'unknowable') {
@@ -166,37 +169,9 @@ castRune() {
 
 
 <style>
-@font-face {
-  font-family: 'Blankers';
-  src: url('src/static/fonts/Blankers.ttf') format('truetype');
-  /* Add additional font variations (e.g., bold, italic) if available */
+.collapse-title {
+    margin-left: 5%;
 }
-@font-face {
-  font-family: 'Ashfiana Regular';
-  src: url('src/static/fonts/Ashfiana\ Regular.ttf') format('truetype');
-  /* Add additional font variations (e.g., bold, italic) if available */
-}
-@font-face {
-  font-family: 'Fashion Fetish';
-  src: url('src/static/fonts/Fashion\ Fetish\ Light.ttf') format('truetype');
-  /* Add additional font variations (e.g., bold, italic) if available */
-}
-@font-face {
-  font-family: 'Fogato';
-  src: url('src/static/fonts/Fogato\ DEMO.ttf') format('truetype');
-  /* Add additional font variations (e.g., bold, italic) if available */
-}
-@font-face {
-  font-family: 'WishShore';
-  src: url('src/static/fonts/WishShore.ttf') format('truetype');
-  /* Add additional font variations (e.g., bold, italic) if available */
-}
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .title {
   text-align: center;
   margin-bottom: 20px;
@@ -204,10 +179,9 @@ castRune() {
 }
 
 .card {
-  background-color: #f7f7f7;
+  background-color: rgb(0, 30, 38);
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn {
@@ -226,8 +200,6 @@ castRune() {
 }
 .runes {    
     border-radius: 4px;
-    background: #507878;
-    border: 3px #57a8a8 solid;
     justify-content: center;
     margin-top: 20px;
   
@@ -267,6 +239,7 @@ castRune() {
     text-align: center;
     font-family: sans-serif;
     color: darkslategray;
+    margin-left: 5%;
 }
 .cast-button {
     background: #507878;
@@ -283,6 +256,7 @@ castRune() {
     padding: 1rem;
     font-size: 80%;
     height: 13rem;
+    color: white;
 }
 .labradorite-image {
     position: absolute;
@@ -303,4 +277,5 @@ castRune() {
     font-size: 140%;
     margin-top: -1rem;
 }
+
 </style>

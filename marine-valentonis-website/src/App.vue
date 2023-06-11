@@ -7,23 +7,22 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   
   <div class="main-page-wrapper">
-    <img class="tech-tree"  src="./static/techtree.webp" alt="">
+    <!-- <img class="tech-tree"  src="./static/techtree.webp" alt=""> -->
 
     <div class="static-content">
        <header class="main-header">
           <nav class="nav-bar">
-            <RouterLink to="/" class="nav-link home-link">Home</RouterLink>
-            <RouterLink to="/cv" class="nav-link cv-link">CV</RouterLink>
+            <RouterLink to="/services" class="nav-link home-link">Services</RouterLink>
+            <RouterLink to="/development" class="nav-link cv-link">Development</RouterLink>
             <RouterLink to="/projects" class="nav-link projects-link">Projects</RouterLink>
-            <RouterLink to="/passions" class="nav-link passions-link">Passions</RouterLink>
-            <RouterLink to="/bettertogether" class="nav-link bettertogether-link">Better Together</RouterLink>
+            <RouterLink to="/passion" class="nav-link passions-link">Passion</RouterLink>
+            <RouterLink to="/community" class="nav-link bettertogether-link">Community</RouterLink>
           </nav>
       </header>
-      <div class="page-view-wrapper">
+    </div>
+   <div class="page-view-wrapper">
         <RouterView />
       </div>
-    </div>
-   
  </div>
 
  
@@ -31,6 +30,16 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style scoped>
 @import '@/static/main.css';
+
+.main-header {
+  width: 100%;
+}
+.page-view-wrapper {
+  background-image: url('@/static/techtree.webp');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
 .static-content {
   width: -webkit-fill-available;
   display: flex;
@@ -38,6 +47,7 @@ import { RouterLink, RouterView } from 'vue-router'
   flex-flow: column;
 }
 .tech-tree {
+  margin-top: 3rem;  
   width:100%;
   position: fixed;
 }
@@ -82,11 +92,14 @@ nav a:first-of-type {
   }
 }
 .nav-bar {
-  font-size: 50%;
+  font-size: 100%;
   z-index: 100;
   text-align: center;
+  width:100%;
+  border-radius: 3px;
+  background: rgb(0, 30, 38, .95);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 .techtree-wrapper {
@@ -96,15 +109,11 @@ nav a:first-of-type {
   background: radial-gradient(#001e26, #040310);
   border-radius: 6px;
 }
-.techtree-image {    
-  width: 84%;
-  border-radius: 14rem;
-  border: solid 1rem rgb(0, 26, 36, 8%);
-}
 .nav-link {
   font-family: 'Blankers';
-  font-size: 200%;
+  font-size: 150%;
   white-space: nowrap;
+
 }
 .nav-link:active,
 .nav-link:focus {

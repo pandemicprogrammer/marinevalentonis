@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import RuneCaster from '@/components/RuneCaster.vue';
+import Collapsible from '@/components/Collapsible.vue';
+
 
 </script>
 <template>
   <div class="projects-view-wrapper">
-    <RuneCaster/>
-    <div class="projects-nav">
-      <div class="woocommerce-suite">WooCommerce PCT Marketplace</div>
-      <div class="woocommerce-suite">WooCommerce PCT Cart Modal</div>
-      <div class="woocommerce-suite">PCT Teletherapy Rules Mapper</div>
-      <div class="woocommerce-suite">HealthPossible</div>
-    </div>
+      <Collapsible collapsibleTitle="RuneCaster">
+        <RuneCaster/>
+      </Collapsible>
   </div>
-    
 </template>
 
 <style>
