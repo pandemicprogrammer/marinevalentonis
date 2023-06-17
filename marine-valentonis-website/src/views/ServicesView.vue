@@ -110,7 +110,7 @@ export default {
   transform: translateX(-50%);
   width: 25%;
   background-color: rgb(0, 30, 38);
-  z-index: 2;
+  z-index: 5;
 }
 .service-description {
   font-size: 80%;

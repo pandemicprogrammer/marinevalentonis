@@ -7,8 +7,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   
   <div class="main-page-wrapper">
-    <!-- <img class="tech-tree"  src="./static/techtree.webp" alt=""> -->
-
+    <div class="page-overlay"></div>
     <div class="static-content">
        <header class="main-header">
           <nav class="nav-bar">
