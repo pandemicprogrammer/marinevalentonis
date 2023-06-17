@@ -52,36 +52,49 @@ export default {
       });
     },
     async loadLogFromAPI() {
-      try {
-        const ghAccessToken = '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';
-        const response = await fetch("https://api.github.com/users/pandemicprogrammer/events", {
-        headers: {
-          Authorization: `token ${ghAccessToken}`
-        }
-      });
-    
-    // Check if request was successful
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+  try {
+    const ghAccessToken = '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';
+    const response = await fetch("https://api.github.com/users/pandemicprogrammer/events", {
+    headers: {
+      Authorization: `token ${ghAccessToken}`
     }
-    
-    const data = await response.json();
+  });
 
-    const logItems = data.map(event => ({
-      id: event.id,
-      date: event.created_at,
-      text: `${event.type} in repo ${event.repo.name}`
-    }));
-
-    this.logItems = logItems;
-  } catch (error) {
-    console.error("Error loading log from API:", error);
+  // Check if request was successful
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
+
+  const data = await response.json();
+
+  const logItems = data.map(event => ({
+    id: event.id,
+    date: event.created_at,
+    text: `${event.type} in repo ${event.repo.name}`
+  }));
+
+  // Update component's data
+  this.logItems = logItems;
+
+  // Save logItems in local storage
+  localStorage.setItem('githubLog', JSON.stringify(logItems));
+} catch (error) {
+  console.error("Error loading log from API:", error);
 }
+}
+
   },
-  mounted() {
+ mounted() {
   this.scrollToBottom();
-  this.loadLogFromAPI();
+  
+  const storedLogItems = localStorage.getItem('githubLog');
+
+  // If githubLog exists in local storage, load it into the component's data
+  if (storedLogItems) {
+    this.logItems = JSON.parse(storedLogItems);
+  } else {
+    this.loadLogFromAPI();
+  }
 }
 };
 </script>
