@@ -36,20 +36,7 @@ export default {
           logo: "src/static/images/kahn.png",
           description: "Our mission is to provide a free, world-class education to anyone, anywhere.",
         },
-        {
-          id: 3,
-          name: "Marine Valentonis",
-          url: "https://marinevalentonis.com",
-          logo: "src/static/images/runes/labradorite.png",
-          description: "Short description of Website 3",
-        },
-         {
-          id: 4,
-          name: "Marine Valentonis",
-          url: "https://marinevalentonis.com",
-          logo: "src/static/images/runes/labradorite.png",
-          description: "Short description of Website 4",
-        },
+       
      
       ],
       selectedLogo: -1,
@@ -68,7 +55,6 @@ export default {
       const x = Math.cos(index * angleIncrement) * distance;
       const y = Math.sin(index * angleIncrement) * distance;
       return {
-        transform: `translate(${x}px, ${y}px) scale(${this.selectedLogo === index ? 1.2 : 1})`,
       };
     },
   },
@@ -77,24 +63,11 @@ export default {
 
 <style scoped>
 .circle-container {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 400px;
-  height: 400px;
+
 }
 
 .logo-container {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 100px;
-  transition: transform 0.5s;
+ scale: 85%;
 }
 
 .logo-link {
@@ -106,6 +79,8 @@ export default {
   flex-flow: column;
   /* background-color: rgb(0, 30, 38, 95%); */
   background-color: white;
+  opacity: .75;
+  scale: 95%;
 }
 
 .logo-image {
@@ -131,5 +106,6 @@ export default {
 .logo-link:hover {
   z-index: 100;
   transform: scale(125%);
+  opacity: 100%;
 }
 </style>

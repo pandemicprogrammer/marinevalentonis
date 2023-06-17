@@ -8,7 +8,7 @@ import WebpagePreview from '@/components/WebpagePreview.vue';
 <template>
   <div class="projects-view-wrapper">
     <Collapsible collapsibleTitle="PCT WooCommerce Suite">
-      <WebpagePreview :url="'https://personcenteredtech.com/marketplace'" />
+      <WebpagePreview :url="'https://personcenteredtech.com/marketplace'" class="marketplace-preview-wrapper"/>
     </Collapsible>
     <Collapsible collapsibleTitle="RuneCaster">
       <RuneCaster/>

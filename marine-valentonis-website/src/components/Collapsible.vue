@@ -58,6 +58,7 @@ export default {
   cursor: pointer;
   height: 6rem;
   transition: background-color 0.3s ease;
+  border-radius: 3px;
 }
 
 .collapse-icon {
@@ -70,6 +71,7 @@ export default {
 
 .collapsible-content {
   overflow: hidden;
+  background-color: rgb(0, 30, 38);
 }
 
 .collapsed .collapsible-header {
