@@ -51,28 +51,38 @@ export default {
         this.$refs.log.scrollTop = this.$refs.log.scrollHeight;
       });
     },
-    async loadLogFromCSV() {
+    async loadLogFromAPI() {
       try {
-        const response = await fetch("src/static/data/github.csv"); // Replace with the actual path to your CSV file
-        const data = await response.text();
-                console.log(data);
-
-        const rows = data.split("\n");
-        const logItems = [];
-        for (const row of rows) {
-          const [id, date, text] = row.split(",");
-          logItems.push({ id, date, text });
+        const ghAccessToken = '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';
+        const response = await fetch("https://api.github.com/users/pandemicprogrammer/events", {
+        headers: {
+          Authorization: `token ${ghAccessToken}`
         }
-        this.logItems = logItems;
-      } catch (error) {
-        console.error("Error loading log from CSV:", error);
-      }
+      });
+    
+    // Check if request was successful
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    
+    const data = await response.json();
+
+    const logItems = data.map(event => ({
+      id: event.id,
+      date: event.created_at,
+      text: `${event.type} in repo ${event.repo.name}`
+    }));
+
+    this.logItems = logItems;
+  } catch (error) {
+    console.error("Error loading log from API:", error);
+  }
+}
   },
   mounted() {
-    this.scrollToBottom();
-    this.loadLogFromCSV();
-  }
+  this.scrollToBottom();
+  this.loadLogFromAPI();
+}
 };
 </script>
 

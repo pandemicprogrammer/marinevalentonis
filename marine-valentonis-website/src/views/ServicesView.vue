@@ -46,7 +46,7 @@ export default {
         {
           id: 6,
           title: 'SaaS Service Integration',
-          description: 'We specialize in SaaS service integration on Javascript & Wordpress platforms.',
+          description: 'Software services integration on Javascript & Wordpress platforms.',
         },
         {
           id: 7,
