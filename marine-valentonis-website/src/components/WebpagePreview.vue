@@ -3,8 +3,7 @@
     <iframe :src="previewUrl"></iframe>
   </div>
 </template>
-
-<script>
+<script lang="ts">
 export default {
   props: {
     url: {
@@ -13,9 +12,14 @@ export default {
     },
   },
   computed: {
-    previewUrl() {
+    previewUrl(): string {
       return this.url;
     },
   },
 };
 </script>
+
+
+
+
+

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-// import TechTree from './components/TechTree.vue';
 
 </script>
 
@@ -40,7 +39,7 @@ import { RouterLink, RouterView } from 'vue-router'
   width: 100%;
 }
 .page-view-wrapper {
-  background-image: url('@/static/techtree.webp');
+  background-image: url('marinevalentonis.com/wp-content/uploads/2023/techtree.webp');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -99,7 +98,7 @@ nav a:first-of-type {
 }
 .nav-link {
   font-family: 'Blankers';
-  font-size: 150%;
+  font-size: 175%;
   white-space: nowrap;
 
 }

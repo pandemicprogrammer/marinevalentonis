@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div>
     <div class="log" ref="log">
       <div v-for="item in logItems" :key="item.id" class="log-item">
         <span class="log-date">{{ formatDate(item.date) }}</span>
@@ -8,34 +8,41 @@
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
+import { ref, onMounted } from 'vue';
+import type { Ref } from 'vue'; // Use type-only import for Ref
 import Collapsible from './Collapsible.vue';
+
+interface LogItem {
+  id: number;
+  date: string;
+  text: string;
+}
 
 export default {
   components: {
     Collapsible
   },
-  data() {
-    return {
-      logItems: []
-    };
-  },
-  methods: {
-    addLogItem(newLogText) {
+  setup() {
+    const logItems: Ref<LogItem[]> = ref([]);
+
+    const addLogItem = (newLogText: string): void => {
       if (newLogText.trim() === "") {
         return;
       }
-      const newItem = {
+      const newItem: LogItem = {
         id: new Date().getTime(),
         date: new Date().toLocaleString(),
         text: newLogText
       };
-      this.logItems.push(newItem);
-      this.scrollToBottom();
-    },
-    formatDate(date) {
+      logItems.value.push(newItem);
+      scrollToBottom();
+    };
+
+    const formatDate = (date: string): string => {
       const parsedDate = new Date(date);
-      if (isNaN(parsedDate)) {
+      if (isNaN(parsedDate.getTime())) {
         return ""; // Return an empty string for invalid dates
       }
       const year = parsedDate.getFullYear();
@@ -45,57 +52,68 @@ export default {
       const minutes = String(parsedDate.getMinutes()).padStart(2, "0");
       const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
       return formattedDate;
-    },
-    scrollToBottom() {
-      this.$nextTick(() => {
-        this.$refs.log.scrollTop = this.$refs.log.scrollHeight;
-      });
-    },
-    async loadLogFromAPI() {
-  try {
-    const ghAccessToken = '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';
-    const response = await fetch("https://api.github.com/users/pandemicprogrammer/events", {
-    headers: {
-      Authorization: `token ${ghAccessToken}`
-    }
-  });
+    };
 
-  // Check if request was successful
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const scrollToBottom = (): void => {
+      if (logRef.value) {
+        logRef.value.scrollTop = logRef.value.scrollHeight;
+      }
+    };
+
+    const logRef: Ref<HTMLDivElement | null> = ref(null);
+
+    onMounted(() => {
+      scrollToBottom();
+
+      const storedLogItems = localStorage.getItem('githubLog');
+
+      // If githubLog exists in local storage, load it into the component's data
+      if (storedLogItems) {
+        logItems.value = JSON.parse(storedLogItems) as LogItem[];
+      } else {
+        loadLogFromAPI();
+      }
+    });
+
+    const loadLogFromAPI = async (): Promise<void> => {
+      try {
+        const ghAccessToken = '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';
+        const response = await fetch("https://api.github.com/users/pandemicprogrammer/events", {
+          headers: {
+            Authorization: `token ${ghAccessToken}`
+          }
+        });
+
+        // Check if request was successful
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const logItemsData = data.map((event: any) => ({
+          id: event.id,
+          date: event.created_at,
+          text: `${event.type} in repo ${event.repo.name}`
+        })) as LogItem[];
+
+        // Update component's data
+        logItems.value = logItemsData;
+
+        // Save logItems in local storage
+        localStorage.setItem('githubLog', JSON.stringify(logItemsData));
+      } catch (error) {
+        console.error("Error loading log from API:", error);
+      }
+    };
+
+    return {
+      logItems,
+      addLogItem,
+      formatDate,
+      logRef
+    };
   }
-
-  const data = await response.json();
-
-  const logItems = data.map(event => ({
-    id: event.id,
-    date: event.created_at,
-    text: `${event.type} in repo ${event.repo.name}`
-  }));
-
-  // Update component's data
-  this.logItems = logItems;
-
-  // Save logItems in local storage
-  localStorage.setItem('githubLog', JSON.stringify(logItems));
-} catch (error) {
-  console.error("Error loading log from API:", error);
-}
-}
-
-  },
- mounted() {
-  this.scrollToBottom();
-  
-  const storedLogItems = localStorage.getItem('githubLog');
-
-  // If githubLog exists in local storage, load it into the component's data
-  if (storedLogItems) {
-    this.logItems = JSON.parse(storedLogItems);
-  } else {
-    this.loadLogFromAPI();
-  }
-}
 };
 </script>
 

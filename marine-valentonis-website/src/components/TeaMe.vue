@@ -37,28 +37,43 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+interface Symptom {
+  value: string;
+}
+
+interface Effect {
+  value: string;
+}
+
+interface Herb {
+  name: string;
+  uses: string;
+}
+
+export default defineComponent({
   data() {
     return {
-      symptoms: [{ value: "" }],
-      effects: [{ value: "" }],
-      foundHerbs: [],
+      symptoms: [{ value: "" }] as Symptom[],
+      effects: [{ value: "" }] as Effect[],
+      foundHerbs: [] as Herb[],
       herbalLibrary: [
         { name: "Herb 1", uses: "Use for symptom 1 and effect 1" },
         { name: "Herb 2", uses: "Use for symptom 2 and effect 2" },
         { name: "Herb 3", uses: "Use for symptom 3 and effect 3" },
         { name: "Mushroom 1", uses: "Use for symptom 4 and effect 4" },
         { name: "Mushroom 2", uses: "Use for symptom 5 and effect 5" },
-      ],
+      ] as Herb[],
       symptomOptions: [
         'Symptom 1', 'Symptom 2', 'Symptom 3', 'Symptom 4', 'Symptom 5'
         // Add your options here
-      ],
+      ] as string[],
       effectOptions: [
         'Effect 1', 'Effect 2', 'Effect 3', 'Effect 4', 'Effect 5'
         // Add your options here
-      ]
+      ] as string[],
     };
   },
   methods: {
@@ -67,7 +82,7 @@ export default {
         this.symptoms.push({ value: "" });
       }
     },
-    removeSymptom(index) {
+    removeSymptom(index: number) {
       this.symptoms.splice(index, 1);
     },
     addEffect() {
@@ -75,7 +90,7 @@ export default {
         this.effects.push({ value: "" });
       }
     },
-    removeEffect(index) {
+    removeEffect(index: number) {
       this.effects.splice(index, 1);
     },
     findHerbs() {
@@ -83,7 +98,7 @@ export default {
         this.matchesCriteria(herb)
       );
     },
-    matchesCriteria(herb) {
+    matchesCriteria(herb: Herb) {
       const symptomMatches = this.symptoms.every((symptom) =>
         herb.uses.toLowerCase().includes(symptom.value.toLowerCase())
       );
@@ -93,7 +108,7 @@ export default {
       return symptomMatches && effectMatches;
     },
   },
-};
+});
 </script>
 
 <style scoped>
@@ -179,7 +194,6 @@ h2 {
   font-size: 16px;
 }
 .page-view-wrapper {
-    background-color: rgba(255, 255, 255, 0.5); /* Background color with opacity */
-
+  background-color: rgba(255, 255, 255, 0.5); /* Background color with opacity */
 }
 </style>

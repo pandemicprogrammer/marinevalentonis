@@ -1,41 +1,48 @@
 <template>
   <div>
-      <div class="container">
-        <div class="card">
-          <select id="numRunes" v-model="selectedNumRunes">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <button class="cast-button btn" @click="castRune">Cast</button>
+    <div class="container">
+      <div class="card">
+        <select id="numRunes" v-model="selectedNumRunes">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button class="cast-button btn" @click="castRune">Cast</button>
 
-          <div class="results-wrapper">
-            <div class="runes">
-              <div v-for="rune in castedRunes" :key="rune" class="rune">
-                <template v-if="rune.name.toLowerCase() !== 'unknowable'">
-                  <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
-                </template>
-                <div v-else style="height:8rem;"/>
-                <img class="labradorite-image" src="src/static/images/runes/labradorite.png" alt="Labradorite Stone">
-                <h1 class="rune-name">
-                  {{ rune.name }}
-                  <sub v-if="rune.inverted">i</sub>
-                </h1>
-              </div>
+        <div class="results-wrapper">
+          <div class="runes">
+            <div v-for="rune in castedRunes" :key="rune.name" class="rune">
+              <template v-if="rune.name.toLowerCase() !== 'unknowable'">
+<img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase()) || undefined" />
+              </template>
+              <div v-else style="height:8rem;"></div>
+              <img class="labradorite-image" src="marinevalentonis.com/wp-content/uploads/2023/labradorite.png" alt="Labradorite Stone">
+              <labradorite></labradorite>
+              <h1 class="rune-name">
+                {{ rune.name }}
+                <sub v-if="rune.inverted">i</sub>
+              </h1>
             </div>
-            <div v-html="output" class="output"></div>
           </div>
+          <div v-html="output" class="output"></div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
-<script>
-import Collapsible from './Collapsible.vue'; // Assuming the above component is in a separate file
-// Dictionary of Runes, Meanings, and Inverted Meanings
-  const runes = {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import type { Ref } from 'vue';
+
+interface Rune {
+  name: string;
+  inverted: boolean;
+}
+
+const runes: Record<string, string[]> = {
   Algiz: ['Protector, Ally, Need For Defense', 'Hidden Danger, Poor Defense, Pretense Of Power'],
   Ansuz: ['Wisdom, communication', 'Misunderstanding, manipulation'],
   Berkano: ['Birth, fertility', 'Sterility, stagnation'],
@@ -63,10 +70,7 @@ import Collapsible from './Collapsible.vue'; // Assuming the above component is 
   Unknowable: ['That which cannot be known until the path is traveled.', '']
 };
 
-
-
-// Dictionary of some basic rune relations for demonstration
-const runeRelations = new Map([
+const runeRelations: Map<string[], string> = new Map([
   [['Fehu', 'Uruz'], 'Wealth and strength can coexist.'],
   [['Uruz', 'Thurisaz'], 'Strong forces might lead to chaos.'],
   [['Thurisaz', 'Ansuz'], 'Chaotic forces may disrupt communication.'],
@@ -92,85 +96,82 @@ const runeRelations = new Map([
   [['Dagaz', 'Othala'], 'Look to heritage & home for clarity.']
 ]);
 
-export default {
+export default defineComponent({
   data() {
     return {
       selectedNumRunes: '1',
       output: '',
-      castedRunes: []
+      castedRunes: [] as Rune[]
     };
-    },
-  
-  components: {
-    Collapsible
   },
   methods: {
-  getRuneImageUrl(rune) {
-  if (rune.toLowerCase() === 'unknowable') {
-    return null; // Return null for "Unknowable" rune
-  }
-
-  const imageName = `src/static/images/runes/${rune.toLowerCase()}.png`;
-  return imageName;
-},
-
-castRune() {
-  const numRunes = parseInt(this.selectedNumRunes, 10); // Convert selectedNumRunes to an integer
-
-  this.castedRunes = []; // Reset the castedRunes array
-
-  let output = '';
-  const relationFound = new Set();
-
-  for (let i = 0; i < numRunes; i++) {
-    const rune = Object.keys(runes)[Math.floor(Math.random() * Object.keys(runes).length)];
-
-    const meanings = runes[rune];
-    const inverted = Math.round(Math.random());
-    const meaning = meanings[inverted];
-    const runeObject = {
-      name: rune,
-      inverted: inverted === 1,
-    };
-    this.castedRunes.push(runeObject);
-
-    const runeOutput = `<div class="rune-wrapper">
-                          <div class="rune-output">
-                            <h1 class="output-name">${rune}</h1> 
-                            ${runeObject.inverted ? '<p class="output-inverted">inverted</p>' : ''}
-                            <br>
-                            <p class="output-meaning"> ${meaning}</p>
-                          </div>
-                        </div>`;
-    output += runeOutput;
-  }
-
-  for (let i = 0; i < this.castedRunes.length; i++) {
-    for (let j = i + 1; j < this.castedRunes.length; j++) {
-      const relationPair = [this.castedRunes[i].name, this.castedRunes[j].name];
-      relationPair.sort();
-      const relation = runeRelations.get(relationPair);
-      if (relation) {
-        relationFound.add(relationPair.join('-'));
+    getRuneImageUrl(rune: string): string | null {
+      if (rune.toLowerCase() === 'unknowable') {
+        return null;
       }
+
+      const imageName = `src/static/images/runes/${rune.toLowerCase()}.png`;
+      return imageName;
+    },
+    castRune(): void {
+      const numRunes = parseInt(this.selectedNumRunes, 10);
+      this.castedRunes = [];
+
+      let output = '';
+      const relationFound = new Set<string>();
+
+      for (let i = 0; i < numRunes; i++) {
+        const rune = Object.keys(runes)[Math.floor(Math.random() * Object.keys(runes).length)];
+
+        const meanings = runes[rune];
+        const inverted = Math.round(Math.random());
+        const meaning = meanings[inverted];
+        const runeObject: Rune = {
+          name: rune,
+          inverted: inverted === 1,
+        };
+        this.castedRunes.push(runeObject);
+
+        const runeOutput = `
+          <div class="rune-wrapper">
+            <div class="rune-output">
+              <h1 class="output-name">${rune}</h1> 
+              ${runeObject.inverted ? '<p class="output-inverted">inverted</p>' : ''}
+              <br>
+              <p class="output-meaning">${meaning}</p>
+            </div>
+          </div>
+        `;
+        output += runeOutput;
+      }
+
+      for (let i = 0; i < this.castedRunes.length; i++) {
+        for (let j = i + 1; j < this.castedRunes.length; j++) {
+          const relationPair = [this.castedRunes[i].name, this.castedRunes[j].name];
+          relationPair.sort();
+          const relation = runeRelations.get(relationPair);
+          if (relation) {
+            relationFound.add(relationPair.join('-'));
+          }
+        }
+      }
+
+      relationFound.forEach((relationPair) => {
+        const relation = runeRelations.get([relationPair]); // Wrap relationPair in an array
+        output += `Relation: ${relationPair}: ${relation}<br><br>`;
+      });
+
+
+      this.output = output;
     }
   }
-
-  relationFound.forEach((relationPair) => {
-    const relation = runeRelations.get(relationPair);
-    output += `Relation: ${relationPair}: ${relation}<br><br>`;
-  });
-
-  this.output = output;
-}
-  }
-};
+});
 </script>
 
 
-<style>
+<style scoped>
 .collapse-title {
-    margin-left: 5%;
+  margin-left: 5%;
 }
 .title {
   text-align: center;
@@ -196,86 +197,94 @@ castRune() {
 .output {
   margin-top: 20px;
   font-size: 16px;
-  color: #232425;
+  color: white;
 }
 .runes {    
-    border-radius: 4px;
-    justify-content: center;
-    margin-top: 20px;
-  
+  border-radius: 4px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .rune {
-    scale: 85%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
+  scale: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
 }
 
 .rune-image {
-    margin-top: 2rem;
-    margin-right: 0.5rem;
-    z-index: 100;
-    width: 100px;
-    height: 100px;
-    filter: invert(100%);
-    opacity: 90%;
+  margin-top: 2rem;
+  margin-right: 0.5rem;
+  z-index: 100;
+  width: 100px;
+  height: 100px;
+  filter: invert(100%);
+  opacity: 90%;
 }
 
 .rune-name {
-    margin-top: 1rem;
-    font-size: 200%;
-    text-align: center;
-    color: white;
+  margin-top: 1rem;
+  font-size: 200%;
+  text-align: center;
+  color: white;
 }
+
 .inverted {
   transform: scaleX(-1);
   color: midnightblue;
 }
+
 #numRunes {
-    width: 4rem;
-    font-size: 1.5rem;
-    text-align: center;
-    font-family: sans-serif;
-    color: darkslategray;
-    margin-left: 5%;
-}
-.cast-button {
-    background: #507878;
-    padding: 1rem;
-    font-size: 2rem;
-    margin: 2rem;
-    font-weight: 700;
-    font-family: 'Ashfiana Regular';
-}
-.results-wrapper {
-    display: flex;
-}
-.rune-output {
-    padding: 1rem;
-    font-size: 80%;
-    height: 13rem;
-    color: white;
-}
-.labradorite-image {
-    position: absolute;
-    width: 13rem;
-    margin-top: -1rem;
-    margin-left: -1rem;
-}
-.output-inverted {
-    font-style: italic;
-    font-weight: bold;
-    font-family: 'Fashion Fetish';
-}
-.output-name, .rune-name {
-    font-family: 'WishShore';
-}
-.output-meaning {
-    font-family: 'Ashfiana Regular';
-    font-size: 140%;
-    margin-top: -1rem;
+  width: 4rem;
+  font-size: 1.5rem;
+  text-align: center;
+  font-family: sans-serif;
+  color: darkslategray;
+  margin-left: 5%;
 }
 
+.cast-button {
+  background: #507878;
+  padding: 1rem;
+  font-size: 2rem;
+  margin: 2rem;
+  font-weight: 700;
+  font-family: 'Ashfiana Regular';
+}
+
+.results-wrapper {
+  display: flex;
+}
+
+.rune-output {
+  padding: 1rem;
+  font-size: 80%;
+  height: 13rem;
+  color: white;
+}
+
+.labradorite-image {
+  position: absolute;
+  width: 13rem;
+  margin-top: -1rem;
+  margin-left: -1rem;
+}
+
+.output-inverted {
+  font-style: italic;
+  font-weight: bold;
+  font-family: 'Fashion Fetish';
+}
+
+.output-name,
+.rune-name {
+  font-family: 'WishShore';
+}
+
+.output-meaning {
+  font-family: 'Ashfiana Regular';
+  font-size: 140%;
+  margin-top: -1rem;
+}
 </style>
