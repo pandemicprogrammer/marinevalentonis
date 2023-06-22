@@ -20,38 +20,38 @@ export default {
       services: [
         {
           id: 1,
-          title: 'Nuxt.js Development',
-          description: 'We provide top-notch Nuxt.js development services.',
+          title: 'Nuxt.js',
+          description: 'Specializing in Vue.js & Next.js applications for a refined UX.',
         },
         {
           id: 2,
-          title: 'Custom API Development',
-          description: 'Our team is experienced in custom API development.',
+          title: 'API & Endpoints',
+          description: 'Custom-built API development for your data needs.',
         },
         {
           id: 3,
           title: 'Wordpress & Custom Plugins',
-          description: 'We can handle Wordpress and custom plugin development.',
+          description: 'Full scope development of plugins tailored to your specific requirements.',
         },
         {
           id: 4,
           title: 'SEO Optimization',
-          description: 'We offer SEO optimization to increase your online visibility.',
+          description: 'Increase user conversion & revenue with increased visibility.',
         },
         {
           id: 5,
           title: 'eCommerce Solutions',
-          description: 'Our team develops reliable and scalable eCommerce solutions.',
+          description: 'Creating reliable and scalable eCommerce solutions.',
         },
         {
           id: 6,
           title: 'SaaS Service Integration',
-          description: 'We specialize in SaaS service integration for a wide variety of businesses.',
+          description: 'Software services integration on Javascript & Wordpress platforms.',
         },
         {
           id: 7,
-          title: 'Risk Mitigation',
-          description: 'Our risk mitigation strategies will protect your business from potential threats.',
+          title: 'UI & UX',
+          description: 'Specializing in user focused design & implementation.',
         }
       ]
     }
@@ -62,7 +62,7 @@ export default {
 <style scoped>
 .services-list {
   z-index: 2;
-  padding: 2em;
+  padding: 1em;
   color:white;
 }
 .services-list li:nth-child(odd) {
@@ -70,9 +70,10 @@ export default {
 }
 
 .services-list h2 {
-  font-size: 2em;
+  font-size: 300%;
   text-align: center;
   z-index: 2;
+  margin-bottom: 3rem;
 }
 
 .services-list ul {
@@ -81,18 +82,16 @@ export default {
 }
 
 .services-list li {
-  margin-bottom: 1em;
+  margin-bottom: 5rem;
+  font-size: 130%;
 }
 
-.services-list h3 {
-  font-size: 1.5em;
-  margin-bottom: 0.5em;
-}
 .services-page-wrapper {
   background-color: rgb(0, 30, 38, .95);
 }
 .service-title {
   font-size: 150%;
+  line-height: 30px;
 }
 .service-page-title {
   font-size: 260%;
@@ -110,7 +109,7 @@ export default {
   transform: translateX(-50%);
   width: 25%;
   background-color: rgb(0, 30, 38);
-  z-index: 2;
+  z-index: 1;
 }
 .service-description {
   font-size: 80%;

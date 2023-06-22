@@ -26,6 +26,17 @@
   src: url('src/static/fonts/WishShore.ttf') format('truetype');
   /* Add additional font variations (e.g., bold, italic) if available */
 }
+
+.marketplace-preview-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.marketplace-preview-wrapper iframe {
+  height: 100vh;
+  border-radius: 3px;
+  margin: 1rem;
+  width: 75%;
+}
 #app {
   margin: 0 auto;
   font-weight: normal;

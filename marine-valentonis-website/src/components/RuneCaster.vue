@@ -9,7 +9,7 @@
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-          <button class="cast-button btn" @click="castRune">Cast Runes</button>
+          <button class="cast-button btn" @click="castRune">Cast</button>
 
           <div class="results-wrapper">
             <div class="runes">
@@ -17,7 +17,7 @@
                 <template v-if="rune.name.toLowerCase() !== 'unknowable'">
                   <img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase())" />
                 </template>
-                <img v-else class="placeholder-image" src="src/static/images/placeholder.png" alt="Placeholder Image" />
+                <div v-else style="height:8rem;"/>
                 <img class="labradorite-image" src="src/static/images/runes/labradorite.png" alt="Labradorite Stone">
                 <h1 class="rune-name">
                   {{ rune.name }}
@@ -89,7 +89,7 @@ const runeRelations = new Map([
   [['Mannaz', 'Laguz'], 'Social harmony can stimulate creative flow.'],
   [['Laguz', 'Ingwaz'], 'Creative flow may lead to potential and fertility.'],
   [['Ingwaz', 'Dagaz'], 'Fertility can result in breakthroughs and clarity.'],
-  [['Dagaz', 'Othala'], 'Clarity can aid in understanding your heritage or home.']
+  [['Dagaz', 'Othala'], 'Look to heritage & home for clarity.']
 ]);
 
 export default {
@@ -273,7 +273,7 @@ castRune() {
     font-family: 'WishShore';
 }
 .output-meaning {
-    font-family: 'Blankers';
+    font-family: 'Ashfiana Regular';
     font-size: 140%;
     margin-top: -1rem;
 }

@@ -7,15 +7,14 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   
   <div class="main-page-wrapper">
-    <!-- <img class="tech-tree"  src="./static/techtree.webp" alt=""> -->
-
+    <div class="page-overlay"></div>
     <div class="static-content">
        <header class="main-header">
           <nav class="nav-bar">
             <RouterLink to="/services" class="nav-link home-link">Services</RouterLink>
             <RouterLink to="/development" class="nav-link cv-link">Development</RouterLink>
             <RouterLink to="/projects" class="nav-link projects-link">Projects</RouterLink>
-            <RouterLink to="/passion" class="nav-link passions-link">Passion</RouterLink>
+            <RouterLink to="/passions" class="nav-link passions-link">Passions</RouterLink>
             <RouterLink to="/community" class="nav-link bettertogether-link">Community</RouterLink>
           </nav>
       </header>
@@ -89,8 +88,6 @@ nav a:first-of-type {
   width:100%;
   border-radius: 3px;
   background: rgb(0, 30, 38, .95);
-  display: flex;
-  justify-content: space-around;
 }
 
 .techtree-wrapper {
