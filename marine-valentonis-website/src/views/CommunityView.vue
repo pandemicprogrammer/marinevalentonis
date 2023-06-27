@@ -17,10 +17,10 @@ import LinkCarousel from '@/components/LinkCarousel.vue';
   z-index: 5;
 }
 .page-overlay {
-  z-index: 1;
+  z-index: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: absolute !important;
   background-color: rgb(35,35,35,.5);
 }
 </style>

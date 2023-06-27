@@ -27,32 +27,27 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      search: '',
-      newPost: '',
-      categories: ['Category 1', 'Category 2', 'Category 3'],
-      posts: [
-        { title: 'Post 1', content: 'Content for post 1...' },
-        { title: 'Post 2', content: 'Content for post 2...' },
-        { title: 'Post 3', content: 'Content for post 3...' }
-      ]
-    }
-  },
-  computed: {
-    filteredPosts() {
-      return this.posts.filter(post => post.title.includes(this.search));
-    }
-  },
-  methods: {
-    addPost() {
-      this.posts.push({ title: `Post ${this.posts.length + 1}`, content: this.newPost });
-      this.newPost = '';
-    }
-  }
-}
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+
+const search = ref('');
+const newPost = ref('');
+const categories = ['Category 1', 'Category 2', 'Category 3'];
+
+const posts = ref([
+  { title: 'Post 1', content: 'Content for post 1...' },
+  { title: 'Post 2', content: 'Content for post 2...' },
+  { title: 'Post 3', content: 'Content for post 3...' }
+]);
+
+const filteredPosts = computed(() => {
+  return posts.value.filter(post => post.title.includes(search.value));
+});
+
+const addPost = () => {
+  posts.value.push({ title: `Post ${posts.value.length + 1}`, content: newPost.value });
+  newPost.value = '';
+};
 </script>
 
 <style scoped>

@@ -10,7 +10,9 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { ref } from 'vue';
+
 export default {
   data() {
     return {
@@ -47,7 +49,7 @@ export default {
 }
 
 .collapsible-header {
-  background-color: rgb(0, 30, 38, .8);
+  background-color: rgba(0, 30, 38, .8);
   justify-content: space-between;
   display: flex;
   align-items: center;
@@ -59,6 +61,7 @@ export default {
   height: 6rem;
   transition: background-color 0.3s ease;
   border-radius: 3px;
+  line-height: 26px;
 }
 
 .collapse-icon {
@@ -71,11 +74,11 @@ export default {
 
 .collapsible-content {
   overflow: hidden;
-  background-color: rgb(0, 30, 38);
+  background-color: rgba(0, 30, 38);
 }
 
 .collapsed .collapsible-header {
-  background-color: rgb(0, 30, 38);
+  background-color: rgba(0, 30, 38);
 }
 
 .collapsible-title {

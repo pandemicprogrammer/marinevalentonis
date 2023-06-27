@@ -5,8 +5,6 @@
       :key="website.id"
       class="logo-container"
       :style="logoStyle(index)"
-      @mouseenter="handleLogoHover"
-      @mouseleave="handleLogoLeave"
     >
       <a :href="website.url" target="_blank" class="logo-link">
         <img :src="website.logo" :alt="website.name" class="logo-image" />
@@ -17,59 +15,52 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   data() {
     return {
-       websites: [
+      websites: [
         {
           id: 1,
           name: "Together Rising",
           url: "https://togetherrising.com",
-          logo: "src/static/images/togetherrising.png",
+          logo: '/wp-content/themes/zeever/assets/together-rising.png',
           description: "Together Rising transforms collective heartbreak into effective action.",
         },
-         {
+        {
           id: 2,
           name: "Kahn Academy",
           url: "https://khanacademy.org",
-          logo: "src/static/images/kahn.png",
+          logo: '/wp-content/themes/zeever/assets/kahn.png',
           description: "Our mission is to provide a free, world-class education to anyone, anywhere.",
         },
-       
-     
       ],
       selectedLogo: -1,
     };
   },
   methods: {
-    handleLogoHover(index) {
+    handleLogoHover(index: number) {
       this.selectedLogo = index;
     },
     handleLogoLeave() {
       this.selectedLogo = -1;
     },
-    logoStyle(index) {
+    logoStyle(index: number) {
       const angleIncrement = (2 * Math.PI) / this.websites.length;
       const distance = 200; // Distance from the center of the circle
       const x = Math.cos(index * angleIncrement) * distance;
       const y = Math.sin(index * angleIncrement) * distance;
       return {
+        transform: `translate(${x}px, ${y}px)`,
       };
     },
   },
-};
+});
 </script>
 
 <style scoped>
-.circle-container {
-
-}
-
-.logo-container {
- scale: 85%;
-}
-
 .logo-link {
   width: 12rem;
   border-radius: 5rem;
@@ -88,24 +79,32 @@ export default {
   transition: transform 0.5s;
   border-radius: 10rem;
 }
+
 .logo-name {
-  color:  rgb(0, 30, 38);
+  color: rgb(0, 30, 38);
   font-family: 'Blankers';
   font-size: 200%;
 }
+
 .logo-description {
   font-size: 85%;
   text-align: center;
   margin-top: 10px;
-  color:  rgb(0, 30, 38, 95%);
+  color: rgb(0, 30, 38, 95%);
   padding: 1rem;
   font-style: italic;
   margin-top: -1rem;
   font-family: 'Ashfiana Regular';
 }
+
 .logo-link:hover {
   z-index: 100;
   transform: scale(125%);
   opacity: 100%;
+}
+
+.circle-container {
+  text-align: center;
+  display: flex;
 }
 </style>

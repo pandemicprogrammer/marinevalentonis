@@ -1,30 +1,40 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-// import TechTree from './components/TechTree.vue';
+import { ref } from 'vue'
+import Services from './views/ServicesView.vue'
+import Development from './views/DevelopmentView.vue'
+import Projects from './views/ProjectsView.vue'
+import Passions from './views/PassionsView.vue'
+import Community from './views/CommunityView.vue'
+
+
+const currentPage = ref('home')
 
 </script>
 
 <template>
-  
   <div class="main-page-wrapper">
     <div class="page-overlay"></div>
     <div class="static-content">
        <header class="main-header">
           <nav class="nav-bar">
-            <RouterLink to="/services" class="nav-link home-link">Services</RouterLink>
-            <RouterLink to="/development" class="nav-link cv-link">Development</RouterLink>
-            <RouterLink to="/projects" class="nav-link projects-link">Projects</RouterLink>
-            <RouterLink to="/passions" class="nav-link passions-link">Passions</RouterLink>
-            <RouterLink to="/community" class="nav-link bettertogether-link">Community</RouterLink>
+            <!-- When these links are clicked, the currentPage property is updated -->
+            <a href="#" class="nav-link home-link" @click.prevent="currentPage = 'services'">Services</a>
+            <a href="#" class="nav-link cv-link" @click.prevent="currentPage = 'development'">Development</a>
+            <a href="#" class="nav-link projects-link" @click.prevent="currentPage = 'projects'">Projects</a>
+            <a href="#" class="nav-link passions-link" @click.prevent="currentPage = 'passions'">Passions</a>
+            <a href="#" class="nav-link bettertogether-link" @click.prevent="currentPage = 'community'">Community</a>
           </nav>
       </header>
     </div>
-   <div class="page-view-wrapper">
-        <RouterView />
-      </div>
- </div>
-
- 
+    <div class="page-view-wrapper">
+      <!-- The content displayed here will depend on the value of currentPage -->
+      <Services v-if="currentPage === 'services'" />
+      <Development v-else-if="currentPage === 'development'" />
+      <Projects v-else-if="currentPage === 'projects'" />
+      <Passions v-else-if="currentPage === 'passions'" />
+      <Community v-else-if="currentPage === 'community'" />
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -40,7 +50,7 @@ import { RouterLink, RouterView } from 'vue-router'
   width: 100%;
 }
 .page-view-wrapper {
-  background-image: url('@/static/techtree.webp');
+  background-image: url('/wp-content/themes/zeever/assets/techtree.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -99,7 +109,7 @@ nav a:first-of-type {
 }
 .nav-link {
   font-family: 'Blankers';
-  font-size: 150%;
+  font-size: 175%;
   white-space: nowrap;
 
 }

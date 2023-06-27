@@ -1,19 +1,18 @@
 <template>
   <div class="services-page-wrapper">
     <div class="services-list">
-    <h2 class="service-page-title">Services</h2>
-    <ul>
-      <li v-for="service in services" :key="service.id">
-        <h3 class="service-title">{{ service.title }}</h3>
-        <p class="service-description">{{ service.description }}</p>
-      </li>
-    </ul>
+      <h2 class="service-page-title">Services</h2>
+      <ul>
+        <li v-for="service in services" :key="service.id">
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-description">{{ service.description }}</p>
+        </li>
+      </ul>
+    </div>
   </div>
-  </div>
-  
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -52,18 +51,18 @@ export default {
           id: 7,
           title: 'UI & UX',
           description: 'Specializing in user focused design & implementation.',
-        }
-      ]
-    }
-  }
-}
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style scoped>
 .services-list {
   z-index: 2;
   padding: 1em;
-  color:white;
+  color: white;
 }
 .services-list li:nth-child(odd) {
   text-align: right;
@@ -87,7 +86,7 @@ export default {
 }
 
 .services-page-wrapper {
-  background-color: rgb(0, 30, 38, .95);
+  background-color: rgba(0, 30, 38, 0.95);
 }
 .service-title {
   font-size: 150%;
@@ -96,7 +95,8 @@ export default {
 .service-page-title {
   font-size: 260%;
 }
-.service-page-title, .service-title {
+.service-page-title,
+.service-title {
   font-family: 'WishShore';
   letter-spacing: 1px;
 }
