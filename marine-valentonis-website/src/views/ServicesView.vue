@@ -20,17 +20,17 @@ export default {
         {
           id: 1,
           title: 'Nuxt.js',
-          description: 'Specializing in Vue.js & Next.js applications for a refined UX.',
+          description: 'Specializing in Vue.js & Next.js applications',
         },
         {
           id: 2,
           title: 'API & Endpoints',
-          description: 'Custom-built API development for your data needs.',
+          description: 'Custom-built API development for your data needs',
         },
         {
           id: 3,
-          title: 'Wordpress & Custom Plugins',
-          description: 'Full scope development of plugins tailored to your specific requirements.',
+          title: 'Wordpress Custom Plugins',
+          description: 'Full scope development of plugins tailored to your specific requirements',
         },
         {
           id: 4,
@@ -39,18 +39,18 @@ export default {
         },
         {
           id: 5,
-          title: 'eCommerce Solutions',
-          description: 'Creating reliable and scalable eCommerce solutions.',
+          title: 'Woommerce Solutions',
+          description: 'Creating reliable and scalable Woommerce solutions',
         },
         {
           id: 6,
           title: 'SaaS Service Integration',
-          description: 'Software services integration on Javascript & Wordpress platforms.',
+          description: 'Software services integration on Javascript & Wordpress platforms',
         },
         {
           id: 7,
           title: 'UI & UX',
-          description: 'Specializing in user focused design & implementation.',
+          description: 'Specializing in user focused design & implementation',
         },
       ],
     };
