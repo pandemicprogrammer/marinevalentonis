@@ -1,29 +1,41 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
+import Services from './views/ServicesView.vue'
+import Development from './views/DevelopmentView.vue'
+import Projects from './views/ProjectsView.vue'
+import Passions from './views/PassionsView.vue'
+import Community from './views/CommunityView.vue'
+import TechTree from "@/static/images/techtree.png";
+
+
+const currentPage = ref('home')
 
 </script>
 
 <template>
-  
   <div class="main-page-wrapper">
     <div class="page-overlay"></div>
     <div class="static-content">
        <header class="main-header">
           <nav class="nav-bar">
-            <RouterLink to="/services" class="nav-link home-link">Services</RouterLink>
-            <RouterLink to="/development" class="nav-link cv-link">Development</RouterLink>
-            <RouterLink to="/projects" class="nav-link projects-link">Projects</RouterLink>
-            <RouterLink to="/passions" class="nav-link passions-link">Passions</RouterLink>
-            <RouterLink to="/community" class="nav-link bettertogether-link">Community</RouterLink>
+            <!-- When these links are clicked, the currentPage property is updated -->
+            <a href="#" class="nav-link home-link" @click.prevent="currentPage = 'services'">Services</a>
+            <a href="#" class="nav-link cv-link" @click.prevent="currentPage = 'development'">Development</a>
+            <a href="#" class="nav-link projects-link" @click.prevent="currentPage = 'projects'">Projects</a>
+            <a href="#" class="nav-link passions-link" @click.prevent="currentPage = 'passions'">Passions</a>
+            <a href="#" class="nav-link bettertogether-link" @click.prevent="currentPage = 'community'">Community</a>
           </nav>
       </header>
     </div>
-   <div class="page-view-wrapper">
-        <RouterView />
-      </div>
- </div>
-
- 
+    <div class="page-view-wrapper" :style="{ backgroundImage: `url(${TechTree})` }">
+      <!-- The content displayed here will depend on the value of currentPage -->
+      <Services v-if="currentPage === 'services'" />
+      <Development v-else-if="currentPage === 'development'" />
+      <Projects v-else-if="currentPage === 'projects'" />
+      <Passions v-else-if="currentPage === 'passions'" />
+      <Community v-else-if="currentPage === 'community'" />
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -39,7 +51,6 @@ import { RouterLink, RouterView } from 'vue-router'
   width: 100%;
 }
 .page-view-wrapper {
-  background-image: url('marinevalentonis.com/wp-content/uploads/2023/techtree.webp');
   background-size: cover;
   background-position: center;
   height: 100vh;

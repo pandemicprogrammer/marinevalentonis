@@ -15,11 +15,10 @@
           <div class="runes">
             <div v-for="rune in castedRunes" :key="rune.name" class="rune">
               <template v-if="rune.name.toLowerCase() !== 'unknowable'">
-<img class="rune-image" :class="{ inverted: rune.inverted }" :src="getRuneImageUrl(rune.name.toLowerCase()) || undefined" />
+                <img class="rune-image" :class="{ inverted: rune.inverted }" :src="runeImages[rune.name.toLowerCase()]" />
               </template>
               <div v-else style="height:8rem;"></div>
-              <img class="labradorite-image" src="marinevalentonis.com/wp-content/uploads/2023/labradorite.png" alt="Labradorite Stone">
-              <labradorite></labradorite>
+              <img class="labradorite-image" :src="labradorite"/>
               <h1 class="rune-name">
                 {{ rune.name }}
                 <sub v-if="rune.inverted">i</sub>
@@ -36,10 +35,67 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import type { Ref } from 'vue';
+import labradorite from '@/static/images/runes/labradorite.png';
+
+import algiz from '@/static/images/runes/algiz.png';
+import ansuz from '@/static/images/runes/ansuz.png';
+import berkano from '@/static/images/runes/berkano.png';
+import dagaz from '@/static/images/runes/dagaz.png';
+import ehwaz from '@/static/images/runes/ehwaz.png';
+import eihwaz from '@/static/images/runes/eihwaz.png';
+import fehu from '@/static/images/runes/fehu.png';
+import gebo from '@/static/images/runes/gebo.png';
+import hagalaz from '@/static/images/runes/hagalaz.png';
+import ingwaz from '@/static/images/runes/ingwaz.png';
+import isa from '@/static/images/runes/isa.png';
+import jera from '@/static/images/runes/jera.png';
+import kenaz from '@/static/images/runes/kenaz.png';
+import laguz from '@/static/images/runes/laguz.png';
+import mannaz from '@/static/images/runes/mannaz.png';
+import nauthiz from '@/static/images/runes/nauthiz.png';
+import othala from '@/static/images/runes/othala.png';
+import perthro from '@/static/images/runes/perthro.png';
+import raidho from '@/static/images/runes/raidho.png';
+import sowilo from '@/static/images/runes/sowilo.png';
+import thurisaz from '@/static/images/runes/thurisaz.png';
+import tiwaz from '@/static/images/runes/tiwaz.png';
+import uruz from '@/static/images/runes/uruz.png';
+import wunjo from '@/static/images/runes/wunjo.png';
+
+const runeImages = {
+  algiz,
+  ansuz,
+  berkano,
+  dagaz,
+  ehwaz,
+  eihwaz,
+  fehu,
+  gebo,
+  hagalaz,
+  ingwaz,
+  isa,
+  jera,
+  kenaz,
+  laguz,
+  mannaz,
+  nauthiz,
+  othala,
+  perthro,
+  raidho,
+  sowilo,
+  thurisaz,
+  tiwaz,
+  uruz,
+  wunjo
+};
 
 interface Rune {
   name: string;
   inverted: boolean;
+  
+}
+interface RuneImages {
+  [key: string]: string;
 }
 
 const runes: Record<string, string[]> = {
@@ -97,8 +153,66 @@ const runeRelations: Map<string[], string> = new Map([
 ]);
 
 export default defineComponent({
-  data() {
+  setup() {
     return {
+      labradorite,
+      runeImages: {
+        algiz,
+        ansuz,
+        berkano,
+        dagaz,
+        ehwaz,
+        eihwaz,
+        fehu,
+        gebo,
+        hagalaz,
+        ingwaz,
+        isa,
+        jera,
+        kenaz,
+        laguz,
+        mannaz,
+        nauthiz,
+        othala,
+        perthro,
+        raidho,
+        sowilo,
+        thurisaz,
+        tiwaz,
+        uruz,
+        wunjo
+      }
+    };
+  },
+  data() {
+        const runeImages: RuneImages = {
+        algiz,
+        ansuz,
+        berkano,
+        dagaz,
+        ehwaz,
+        eihwaz,
+        fehu,
+        gebo,
+        hagalaz,
+        ingwaz,
+        isa,
+        jera,
+        kenaz,
+        laguz,
+        mannaz,
+        nauthiz,
+        othala,
+        perthro,
+        raidho,
+        sowilo,
+        thurisaz,
+        tiwaz,
+        uruz,
+        wunjo    };
+
+    return {
+      runeImages,
       selectedNumRunes: '1',
       output: '',
       castedRunes: [] as Rune[]
@@ -110,7 +224,7 @@ export default defineComponent({
         return null;
       }
 
-      const imageName = `src/static/images/runes/${rune.toLowerCase()}.png`;
+      const imageName = rune.toLowerCase();
       return imageName;
     },
     castRune(): void {

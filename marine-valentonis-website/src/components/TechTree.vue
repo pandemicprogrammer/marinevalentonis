@@ -3,7 +3,7 @@
   <div> 
   <div class="techtree-wrapper">
 
-    <img class="techtree-image" src="marinevalentonis.com/wp-content/uploads/2023/techtree.webp">
+    <img class="techtree-image" src='../static/techtree.webp'>
 </div>
   </div>
   </template>
