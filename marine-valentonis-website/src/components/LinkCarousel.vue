@@ -17,8 +17,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import togetherRisingLogo from "@/static/images/togetherrising.png";
-import kahnLogo from "@/static/images/kahn.png";
 
 export default defineComponent({
   data() {
@@ -28,14 +26,14 @@ export default defineComponent({
           id: 1,
           name: "Together Rising",
           url: "https://togetherrising.com",
-          logo: togetherRisingLogo,
+          logo: '/wp-content/themes/zeever/assets/together-rising.png',
           description: "Together Rising transforms collective heartbreak into effective action.",
         },
         {
           id: 2,
           name: "Kahn Academy",
           url: "https://khanacademy.org",
-          logo: kahnLogo,
+          logo: '/wp-content/themes/zeever/assets/kahn.png',
           description: "Our mission is to provide a free, world-class education to anyone, anywhere.",
         },
       ],

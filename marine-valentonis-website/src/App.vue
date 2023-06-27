@@ -5,7 +5,6 @@ import Development from './views/DevelopmentView.vue'
 import Projects from './views/ProjectsView.vue'
 import Passions from './views/PassionsView.vue'
 import Community from './views/CommunityView.vue'
-import TechTree from "@/static/images/techtree.png";
 
 
 const currentPage = ref('home')
@@ -27,7 +26,7 @@ const currentPage = ref('home')
           </nav>
       </header>
     </div>
-    <div class="page-view-wrapper" :style="{ backgroundImage: `url(${TechTree})` }">
+    <div class="page-view-wrapper">
       <!-- The content displayed here will depend on the value of currentPage -->
       <Services v-if="currentPage === 'services'" />
       <Development v-else-if="currentPage === 'development'" />
@@ -51,6 +50,7 @@ const currentPage = ref('home')
   width: 100%;
 }
 .page-view-wrapper {
+  background-image: url('/wp-content/themes/zeever/assets/techtree.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
