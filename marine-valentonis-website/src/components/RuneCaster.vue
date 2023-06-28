@@ -14,11 +14,13 @@
         <div class="results-wrapper">
           <div class="runes">
             <div v-for="rune in castedRunes" :key="rune.name" class="rune">
-              <template v-if="rune.name.toLowerCase() !== 'unknowable'">
+              <div class="rune-wrapper"><template v-if="rune.name.toLowerCase() !== 'unknowable'">
                 <img class="rune-image" :class="{ inverted: rune.inverted }" :src="'/wp-content/themes/zeever/assets/' + rune.name.toLowerCase() + '.png'" />
               </template>
               <div v-else style="height:8rem;"></div>
               <img class="labradorite-image" :src="labradoriteImage" />
+                </div>
+              
               <div class="text-output">
                 <h1 class="rune-name">
                 {{ rune.name }}
@@ -143,30 +145,23 @@ export default defineComponent({
 }
 
 .output {
-  margin-top: 20px;
   font-size: 16px;
   color: white;
 }
 .runes {    
   border-radius: 4px;
-  justify-content: center;
-  margin-top: 20px;
-    display: flex;
-  flex-wrap: wrap;
-}
-.rune {
-  flex-basis: 20%; /* Adjust the value as needed */
-}
-.rune {
-  scale: 85%;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
+  overflow: scroll;
+}
+.rune {
+  display: flex;
   align-items: center;
   margin: 10px;
+  flex-flow: column;
 }
 
 .rune-image {
-  margin-top: 1rem;
   position: absolute;
   margin-right: 0.5rem;
   z-index: 100;
@@ -174,6 +169,7 @@ export default defineComponent({
   height: 100px;
   filter: invert(100%);
   opacity: 90%;
+  margin-left: 1rem;
 }
 
 .rune-name {
@@ -218,7 +214,7 @@ export default defineComponent({
 }
 
 .labradorite-image {
-  width: 13rem;
+  width: 10rem;
   margin-top: -1rem;
   margin-left: -.5rem;
 }
