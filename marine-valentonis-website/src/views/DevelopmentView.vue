@@ -7,9 +7,11 @@ import Collapsible from '@/components/Collapsible.vue';
 
 <template>
   <div class="development-page-wrapper">
-   <Collapsible collapsibleTitle="GitHub PR & Release Log">
+    <a href="https://github.com/pandemicprogrammer">
+      <Collapsible collapsibleTitle="GitHub PR & Release Log" >
       <InputLog />
-   </Collapsible>
+   </Collapsible></a>
+   
 </div>
 
 </template>

@@ -92,6 +92,7 @@ nav a:first-of-type {
 }
 
 .nav-bar {
+  padding: 1rem;
   font-size: 100%;
   z-index: 100;
   text-align: center;
@@ -109,7 +110,7 @@ nav a:first-of-type {
 }
 .nav-link {
   font-family: 'Blankers';
-  font-size: 175%;
+  font-size: 200%;
   white-space: nowrap;
 
 }

@@ -84,7 +84,7 @@ export default {
 .collapsible-title {
   margin-left: 5%;
   font-family: 'WishShore';
-  font-size: 200%;
+  font-size: 180%;
   color: white;
 }
 </style>

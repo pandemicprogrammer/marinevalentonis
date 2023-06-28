@@ -14,18 +14,25 @@
         <div class="results-wrapper">
           <div class="runes">
             <div v-for="rune in castedRunes" :key="rune.name" class="rune">
-              <template v-if="rune.name.toLowerCase() !== 'unknowable'">
+              <div class="rune-wrapper"><template v-if="rune.name.toLowerCase() !== 'unknowable'">
                 <img class="rune-image" :class="{ inverted: rune.inverted }" :src="'/wp-content/themes/zeever/assets/' + rune.name.toLowerCase() + '.png'" />
               </template>
               <div v-else style="height:8rem;"></div>
-               <img class="labradorite-image" :src="labradoriteImage" />
-              <h1 class="rune-name">
+              <img class="labradorite-image" :src="labradoriteImage" />
+                </div>
+              
+              <div class="text-output">
+                <h1 class="rune-name">
                 {{ rune.name }}
                 <sub v-if="rune.inverted">i</sub>
               </h1>
+              <div class="rune-output">
+                <p v-if="rune.inverted" class="output-inverted">Inverted</p>
+                <p class="output-meaning">{{ getMeaning(rune) }}</p>
+              </div></div>
+              
             </div>
           </div>
-          <div v-html="output" class="output"></div>
         </div>
       </div>
     </div>
@@ -33,136 +40,84 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import type { Ref } from 'vue';
+import { defineComponent } from 'vue';
 
 interface Rune {
-  name: string;
+  name: RuneName;
   inverted: boolean;
-  
+}
+// Add all your rune names here
+type RuneName = 'Algiz' | 'Ansuz' | 'Berkano' | 'Dagaz' | 'Ehwaz' | 'Eihwaz' | 'Fehu' | 'Gebo' | 'Hagalaz' | 'Ingwaz' | 'Isa' | 'Jera' | 'Kenaz' | 'Laguz' | 'Mannaz' | 'Nauthiz' | 'Othala' | 'Perthro' | 'Raidho' | 'Sowilo' | 'Thurisaz' | 'Tiwaz' | 'Uruz' | 'Wunjo' | 'Unknowable';
+
+interface Runes {
+  [key: string]: string[];
 }
 
-const runes: Record<string, string[]> = {
-  Algiz: ['Protector, Ally, Need For Defense', 'Hidden Danger, Poor Defense, Pretense Of Power'],
-  Ansuz: ['Wisdom, communication', 'Misunderstanding, manipulation'],
-  Berkano: ['Birth, fertility', 'Sterility, stagnation'],
-  Dagaz: ['Breakthrough, clarity', 'Confusion, lack of vision'],
-  Ehwaz: ['Harmony, teamwork', 'Discord, betrayal'],
-  Eihwaz: ['Endurance, defense', 'Confusion, destruction'],
-  Fehu: ['Wealth, prosperity', 'Loss of wealth, failure'],
-  Gebo: ['Gifts, exchange', 'Obligation, ingratitude'],
-  Hagalaz: ['Disruption, change', 'Stagnation, loss of power'],
-  Ingwaz: ['Potential, fertility', 'Impotence, lack of action'],
-  Isa: ['Stillness, isolation', 'Boredom, loneliness'],
-  Jera: ['Harvest, Reward, Plenty', ''],
-  Kenaz: ['Knowledge, illumination', 'Ignorance, instability'],
-  Laguz: ['Flow, life energy', 'Fear, lack of creativity'],
-  Mannaz: ['Humanity, Social Order, Self Identity, Social Perception', 'Isolation, Selfishness, Social Schism, Self-Work'],
-  Nauthiz: ['Need, resistance', 'Impatience, compulsion'],
-  Othala: ['Inheritance, home', 'Loss, lack of direction'],
-  Perthro: ['Mystery, chance', 'Stasis, lack of change'],
-  Raidho: ['Travel, movement', 'Unexpected change, delay'],
-  Sowilo: ['Energy, life force', 'Weakness, lack of energy'],
-  Thurisaz: ['Force, Change Through Chaos, Sexual Tension', 'Undefended, Betrayal, Inability To Start Over'],
-  Tiwaz: ['Victory, Success, Unexpected Costs, Breakthrough', 'Cost Of Success Too Great, Inability To Judge Effectively'],
-  Uruz: ['Physical strength, speed', 'Weakness, inconsistency'],
-  Wunjo: ['Joy, harmony', 'Sorrow, strife'],
-  Unknowable: ['That which cannot be known until the path is traveled.', '']
-};
-
-const runeRelations: Map<string[], string> = new Map([
-  [['Fehu', 'Uruz'], 'Wealth and strength can coexist.'],
-  [['Uruz', 'Thurisaz'], 'Strong forces might lead to chaos.'],
-  [['Thurisaz', 'Ansuz'], 'Chaotic forces may disrupt communication.'],
-  [['Ansuz', 'Raidho'], 'Communication can aid in travel or change.'],
-  [['Raidho', 'Kenaz'], 'Travel or movement may lead to new knowledge.'],
-  [['Kenaz', 'Gebo'], 'Knowledge is a gift.'],
-  [['Gebo', 'Wunjo'], 'Gifts may bring joy.'],
-  [['Wunjo', 'Hagalaz'], 'Even in joy, be aware of potential disruptions.'],
-  [['Hagalaz', 'Nauthiz'], 'Disruptions may lead to need or resistance.'],
-  [['Nauthiz', 'Isa'], 'Resistance can lead to stagnation or isolation.'],
-  [['Isa', 'Jera'], 'Stagnation might prevent harvest or reward.'],
-  [['Jera', 'Eihwaz'], 'Rewards require endurance.'],
-  [['Eihwaz', 'Perthro'], 'Endurance can lead to unknown outcomes.'],
-  [['Perthro', 'Algiz'], 'Mystery and protection can go hand in hand.'],
-  [['Algiz', 'Sowilo'], 'Protection can lead to vital energy or life force.'],
-  [['Sowilo', 'Tiwaz'], 'Life energy may require justice or sacrifice.'],
-  [['Tiwaz', 'Berkano'], 'Justice may result in new beginnings or growth.'],
-  [['Berkano', 'Ehwaz'], 'Growth and harmony often go together.'],
-  [['Ehwaz', 'Mannaz'], 'Harmony can enhance social connections and humanity.'],
-  [['Mannaz', 'Laguz'], 'Social harmony can stimulate creative flow.'],
-  [['Laguz', 'Ingwaz'], 'Creative flow may lead to potential and fertility.'],
-  [['Ingwaz', 'Dagaz'], 'Fertility can result in breakthroughs and clarity.'],
-  [['Dagaz', 'Othala'], 'Look to heritage & home for clarity.']
-]);
-
 export default defineComponent({
- 
   data() {
     return {
       selectedNumRunes: '1',
-      output: '',
       castedRunes: [] as Rune[],
       labradoriteImage: '/wp-content/themes/zeever/assets/labradorite.png',
-
+      runes: {
+        Algiz: ['Protector, Ally, Need For Defense', 'Hidden Danger, Poor Defense, Pretense Of Power'],
+        Ansuz: ['Wisdom, communication', 'Misunderstanding, manipulation'],
+        Berkano: ['Birth, fertility', 'Sterility, stagnation'],
+        Dagaz: ['Breakthrough, clarity', 'Confusion, lack of vision'],
+        Ehwaz: ['Harmony, teamwork', 'Discord, betrayal'],
+        Eihwaz: ['Endurance, defense', 'Confusion, destruction'],
+        Fehu: ['Wealth, prosperity', 'Loss of wealth, failure'],
+        Gebo: ['Gifts, exchange', 'Obligation, ingratitude'],
+        Hagalaz: ['Disruption, change', 'Stagnation, loss of power'],
+        Ingwaz: ['Potential, fertility', 'Impotence, lack of action'],
+        Isa: ['Stillness, isolation', 'Boredom, loneliness'],
+        Jera: ['Harvest, Reward, Plenty'],
+        Kenaz: ['Knowledge, illumination', 'Ignorance, instability'],
+        Laguz: ['Flow, life energy', 'Fear, lack of creativity'],
+        Mannaz: ['Humanity, Social Order, Self Identity, Social Perception', 'Isolation, Selfishness, Social Schism, Self-Work'],
+        Nauthiz: ['Need, resistance', 'Impatience, compulsion'],
+        Othala: ['Inheritance, home', 'Loss, lack of direction'],
+        Perthro: ['Mystery, chance', 'Stasis, lack of change'],
+        Raidho: ['Travel, movement', 'Unexpected change, delay'],
+        Sowilo: ['Energy, life force', 'Weakness, lack of energy'],
+        Thurisaz: ['Force, Change Through Chaos, Sexual Tension', 'Undefended, Betrayal, Inability To Start Over'],
+        Tiwaz: ['Victory, Success, Unexpected Costs, Breakthrough', 'Cost Of Success Too Great, Inability To Judge Effectively'],
+        Uruz: ['Physical strength, speed', 'Weakness, inconsistency'],
+        Wunjo: ['Joy, harmony', 'Sorrow, strife'],
+        Unknowable: ['Cannot be known until the path is traveled']
+      } as Runes
     };
   },
   methods: {
+    getMeaning(rune: Rune): string {
+      const meanings = this.runes[rune.name];
+      const invertedIndex = rune.inverted ? 1 : 0;
+
+      if (rune.name === 'Jera' || rune.name === 'Unknowable') {
+        return meanings[0];  // these runes don't have inverted meanings
+      } else {
+        return meanings[invertedIndex] || meanings[0];
+      }
+    },
     castRune(): void {
       const numRunes = parseInt(this.selectedNumRunes, 10);
       this.castedRunes = [];
-
-      let output = '';
-      const relationFound = new Set<string>();
-
+  
+      const runeNames = Object.keys(this.runes) as RuneName[];
+  
       for (let i = 0; i < numRunes; i++) {
-        const rune = Object.keys(runes)[Math.floor(Math.random() * Object.keys(runes).length)];
-
-        const meanings = runes[rune];
-        const inverted = Math.round(Math.random());
-        const meaning = meanings[inverted];
-        const runeObject: Rune = {
-          name: rune,
-          inverted: inverted === 1,
-        };
-        this.castedRunes.push(runeObject);
-
-        const runeOutput = `
-          <div class="rune-wrapper">
-            <div class="rune-output">
-              <h1 class="output-name">${rune}</h1> 
-              ${runeObject.inverted ? '<p class="output-inverted">inverted</p>' : ''}
-              <br>
-              <p class="output-meaning">${meaning}</p>
-            </div>
-          </div>
-        `;
-        output += runeOutput;
+        const runeName = runeNames[Math.floor(Math.random() * runeNames.length)];
+        const inverted = (runeName !== 'Jera' && runeName !== 'Unknowable') ? Math.random() < 0.5 : false;
+  
+        this.castedRunes.push({
+          name: runeName,
+          inverted: inverted
+        });
       }
-
-      for (let i = 0; i < this.castedRunes.length; i++) {
-        for (let j = i + 1; j < this.castedRunes.length; j++) {
-          const relationPair = [this.castedRunes[i].name, this.castedRunes[j].name];
-          relationPair.sort();
-          const relation = runeRelations.get(relationPair);
-          if (relation) {
-            relationFound.add(relationPair.join('-'));
-          }
-        }
-      }
-
-      relationFound.forEach((relationPair) => {
-        const relation = runeRelations.get([relationPair]); // Wrap relationPair in an array
-        output += `Relation: ${relationPair}: ${relation}<br><br>`;
-      });
-
-
-      this.output = output;
-    }
-  }
+    },
+  },
 });
 </script>
-
 
 <style scoped>
 .collapse-title {
@@ -190,32 +145,31 @@ export default defineComponent({
 }
 
 .output {
-  margin-top: 20px;
   font-size: 16px;
   color: white;
 }
 .runes {    
   border-radius: 4px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.rune {
-  scale: 85%;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
+  overflow: scroll;
+}
+.rune {
+  display: flex;
   align-items: center;
   margin: 10px;
+  flex-flow: column;
 }
 
 .rune-image {
-  margin-top: 2rem;
+  position: absolute;
   margin-right: 0.5rem;
   z-index: 100;
   width: 100px;
   height: 100px;
   filter: invert(100%);
   opacity: 90%;
+  margin-left: 1rem;
 }
 
 .rune-name {
@@ -260,10 +214,9 @@ export default defineComponent({
 }
 
 .labradorite-image {
-  position: absolute;
-  width: 13rem;
+  width: 10rem;
   margin-top: -1rem;
-  margin-left: -1rem;
+  margin-left: -.5rem;
 }
 
 .output-inverted {
