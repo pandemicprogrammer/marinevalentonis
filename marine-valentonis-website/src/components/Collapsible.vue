@@ -2,16 +2,30 @@
   <div class="collapsible-container" :class="{ 'collapsed': isCollapsed }">
     <div class="collapsible-header" @click="toggleCollapse">
       <h2 class="collapsible-title">{{ collapsibleTitle }}</h2>
+      <div class="tech-items">
+        <div v-for="(item, index) in items" :key="index" class="item-container">
+        <img v-if="item.logo" :src="item.logo" alt="Logo" class="item-logo" />
+        <span class="item-name">{{ item.name }}</span>
+        <span v-if="item.value" class="item-value">{{ item.value }}</span>
+      </div>
+    </div>
       <span class="collapse-icon">{{ isCollapsed ? '+' : '-' }}</span>
     </div>
+    
     <div class="collapsible-content" :style="contentStyle">
-      <slot></slot>
+          <slot></slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+
+// Define the structure of an item
+interface Item {
+  logo?: string;
+  name: string;
+  value?: string;
+}
 
 export default {
   data() {
@@ -27,6 +41,10 @@ export default {
   props: {
     collapsibleTitle: {
       type: String,
+      required: true,
+    },
+   items: {
+      type: Array as () => Item[],
       required: true,
     },
   },
@@ -84,7 +102,39 @@ export default {
 .collapsible-title {
   margin-left: 5%;
   font-family: 'WishShore';
-  font-size: 180%;
+  color: white;
+  width: 100%;
+}
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+}
+
+.item {
+  margin-bottom: 10px;
+  color: white;
+}
+.item-logo{
+  width:25%;
+}
+.item-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tech-items {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.item-name {
+  font-family: 'Ashfiana Regular';
+  padding: 5px;
   color: white;
 }
 </style>
