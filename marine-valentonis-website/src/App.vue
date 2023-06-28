@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import Services from './views/ServicesView.vue'
 import Development from './views/DevelopmentView.vue'
-import Projects from './views/ProjectsView.vue'
+import Portfolio from './views/PortfolioView.vue'
 import Passions from './views/PassionsView.vue'
 import Community from './views/CommunityView.vue'
 
@@ -20,7 +20,7 @@ const currentPage = ref('home')
             <!-- When these links are clicked, the currentPage property is updated -->
             <a href="#" class="nav-link home-link" @click.prevent="currentPage = 'services'">Services</a>
             <a href="#" class="nav-link cv-link" @click.prevent="currentPage = 'development'">Development</a>
-            <a href="#" class="nav-link projects-link" @click.prevent="currentPage = 'projects'">Projects</a>
+            <a href="#" class="nav-link projects-link" @click.prevent="currentPage = 'portfolio'">Portfolio</a>
             <a href="#" class="nav-link passions-link" @click.prevent="currentPage = 'passions'">Passions</a>
             <a href="#" class="nav-link bettertogether-link" @click.prevent="currentPage = 'community'">Community</a>
           </nav>
@@ -30,7 +30,7 @@ const currentPage = ref('home')
       <!-- The content displayed here will depend on the value of currentPage -->
       <Services v-if="currentPage === 'services'" />
       <Development v-else-if="currentPage === 'development'" />
-      <Projects v-else-if="currentPage === 'projects'" />
+      <Portfolio v-else-if="currentPage === 'portfolio'" />
       <Passions v-else-if="currentPage === 'passions'" />
       <Community v-else-if="currentPage === 'community'" />
     </div>
@@ -54,6 +54,8 @@ const currentPage = ref('home')
   background-size: cover;
   background-position: center;
   height: 100vh;
+  border: solid 1rem rgb(0, 30, 38, .95);
+  border-radius: 15px;
 }
 .static-content {
   width: -webkit-fill-available;

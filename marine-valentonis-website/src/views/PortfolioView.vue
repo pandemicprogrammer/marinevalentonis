@@ -10,6 +10,9 @@ import WebpagePreview from '@/components/WebpagePreview.vue';
     <Collapsible collapsibleTitle="PCT WooCommerce Suite">
       <WebpagePreview :url="'https://personcenteredtech.com/marketplace'" class="marketplace-preview-wrapper"/>
     </Collapsible>
+    <Collapsible collapsibleTitle="FastCast Calculator">
+      <WebpagePreview :url="'https://fast-cast.netlify.app'" class="marketplace-preview-wrapper"/>
+    </Collapsible>
     <Collapsible collapsibleTitle="RuneCaster">
       <RuneCaster/>
     </Collapsible>
