@@ -3,19 +3,17 @@ import RuneCaster from '@/components/RuneCaster.vue';
 import Collapsible from '@/components/Collapsible.vue';
 import TeaMe from '@/components/TeaMe.vue';
 import WebpagePreview from '@/components/WebpagePreview.vue';
-import NextJs from '@/static/images/nextjs.svg';
-import NodeJs from '@/static/images/nodejs.png';
-import Wordpress from '@/static/images/wordpress-logo.png';
 
-</script>';
+
+</script>
 
 <template>
   <div class="projects-view-wrapper">
     <Collapsible v-bind:collapsibleTitle="'PCT WooCommerce Suite'" :items="[
-        {logo: NodeJs, name: ''}, 
-        {logo: Wordpress, name: ''}, 
-        {name: 'AJAX REST APIs'}, 
-        {name: 'UI & UX Update'}
+        // {logo: 'wp-content/themes/zeever/assets/nodejs.png', name: ''}, 
+        // {logo: 'wp-content/themes/zeever/assets/wordpress.png', name: ''}, 
+        // {name: 'AJAX REST APIs'}, 
+        // {name: 'UI & UX Update'}
       ]"
 >
       <WebpagePreview :url="'https://personcenteredtech.com/marketplace'" class="marketplace-preview-wrapper"/>
