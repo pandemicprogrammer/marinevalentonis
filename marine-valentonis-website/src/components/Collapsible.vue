@@ -44,8 +44,10 @@ export default {
       required: true,
     },
    items: {
-      type: Array as () => Item[],
-      required: true,
+    type: Array as () => Item[],
+    required: false,
+    default: () => [], // Provide a default empty array
+
     },
   },
   methods: {

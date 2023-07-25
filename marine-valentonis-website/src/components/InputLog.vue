@@ -78,7 +78,7 @@ export default {
     const loadLogFromAPI = async (): Promise<void> => {
       try {
         const ghAccessToken = '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';
-        const response = await fetch("https://api.github.com/users/pandemicprogrammer/events", {
+        const response = await fetch("https://api.github.com/repos/pandemicprogrammer/prod-pct-wordpress", {
           headers: {
             Authorization: `token ${ghAccessToken}`
           }

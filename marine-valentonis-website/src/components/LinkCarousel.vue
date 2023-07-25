@@ -68,10 +68,10 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   flex-flow: column;
-  /* background-color: rgb(0, 30, 38, 95%); */
   background-color: white;
   opacity: .75;
   scale: 95%;
+  text-decoration: none;
 }
 
 .logo-image {
