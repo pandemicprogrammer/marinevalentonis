@@ -19,7 +19,7 @@ const currentPage = ref('home')
        <header class="main-header">
           <nav class="nav-bar">
             <!-- When these links are clicked, the currentPage property is updated -->
-            <a href="#" class="nav-link home-link" @click.prevent="currentPage = 'services'">Services</a>
+            <a href="#" class="nav-link home-link" @click.prevent="currentPage = 'services'">Stack</a>
             <a href="#" class="nav-link projects-link" @click.prevent="currentPage = 'portfolio'">Development</a>
             <a href="#" class="nav-link passions-link" @click.prevent="currentPage = 'passions'">Passion</a>
             <a href="#" class="nav-link bettertogether-link" @click.prevent="currentPage = 'community'">Community</a>
@@ -55,7 +55,7 @@ const currentPage = ref('home')
   background-size: cover;
   background-position: center;
   border: solid 1rem rgb(0, 30, 38, .95);
-  height: 100vh;
+  min-height: 100vh;
 }
 .static-content {
   width: -webkit-fill-available;
@@ -120,4 +120,5 @@ nav a:first-of-type {
 .nav-link:focus {
   font-weight: bold;
 }
+
 </style>

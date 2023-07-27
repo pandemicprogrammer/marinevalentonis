@@ -1,118 +1,129 @@
-<template>
-  <div class="services-page-wrapper">
-    <div class="services-list">
-      <h2 class="service-page-title">Services</h2>
-      <ul>
-        <li v-for="service in services" :key="service.id">
-          <h3 class="service-title">{{ service.title }}</h3>
-          <p class="service-description">{{ service.description }}</p>
-        </li>
-      </ul>
-    </div>
-  </div>
-</template>
 
-<script lang="ts">
-export default {
-  data() {
-    return {
-      services: [
-        {
-          id: 1,
-          title: 'Nuxt.js',
-          description: 'Specializing in Vue.js & Next.js applications',
-        },
-        {
-          id: 2,
-          title: 'API & Endpoints',
-          description: 'Custom-built API development for your data needs',
-        },
-        {
-          id: 3,
-          title: 'Wordpress Custom Plugins',
-          description: 'Full scope development of plugins tailored to your specific requirements',
-        },
-        {
-          id: 4,
-          title: 'SEO Optimization',
-          description: 'Increase user conversion & revenue with increased visibility.',
-        },
-        {
-          id: 5,
-          title: 'Woommerce Solutions',
-          description: 'Creating reliable and scalable Woommerce solutions',
-        },
-        {
-          id: 6,
-          title: 'SaaS Integration',
-          description: 'Software services integration on Javascript & Wordpress platforms',
-        },
-        {
-          id: 7,
-          title: 'UI & UX',
-          description: 'Specializing in user focused design & implementation',
-        },
-      ],
-    };
-  },
-};
+<script setup lang="ts">
+import Collapsible from '@/components/Collapsible.vue';
+
 </script>
 
-<style scoped>
-.services-list {
-  z-index: 2;
-  padding: 1em;
-  color: white;
-}
-.services-list li:nth-child(odd) {
-  text-align: right;
-}
+<template>
+  <div class="services-page-wrapper">
+      <Collapsible collapsibleTitle="Frontend" >
+        <div>
+          <ul>
+  <li>Vue.js</li>
+  <li>Nuxt.js</li>
+  <li>Typescript</li>
+  <li>jQuery</li>
+  <li>CSS/Sass</li>
 
-.services-list h2 {
-  font-size: 300%;
-  text-align: center;
-  z-index: 2;
-  margin-bottom: 3rem;
-}
+</ul> 
+ </div>
+  <div>
+          <ul>
+    <li>Webpack</li>
+    <li>Bootstrap</li>
+    <li>Gulp</li>
+    <li>Rollup</li>
+</ul> 
+ </div>
+ </Collapsible>
+   <Collapsible collapsibleTitle="Backend" >
+        <div>
+          <ul>
+            <li>Python</li>
+            <li>PHP</li>
+            <li>MySQL</li>
+            <li>Java - University Level</li>
+          </ul> 
+          </div>
+            <div>
+                    <ul>
+            <li>Django</li>
+            <li>Flask</li>
+          </ul> 
+          </div>
+            </Collapsible>
+              <Collapsible collapsibleTitle="DevOps" >
+                <div>
+                    <ul>
+            <li>VCS: Git</li>
+            <li>CI/CD: GitLab</li>
+            <li>YAML Git Actions Build & Deployment Workflows</li>
+          </ul> 
+          </div>
+            <div>
+                    <ul>
+            <li>AWS</li>
+            <li>Containerization: Docker, Docker Compose</li>
 
-.services-list ul {
-  list-style-type: none;
-  padding: 0;
-}
+          </ul> 
+          </div>
+   </Collapsible>
+    <Collapsible collapsibleTitle="Wordpress" >
+       <div>
+          <ul>
+            <li>Custom Themes</li>
+            <li>Custom Plugins</li>
+            <li>Taxonomies & Custom Post Types</li>
+            <li>Wordpress REST API</li>
+            <li>Woocommerce REST API</li>
+          </ul> 
+          </div>
+            <div>
+                    <ul>
+            <li>Database Management</li>
+            <li>Backup & Restore</li>
+            <li>Custom Cart & Checkout</li>
+            <li>Custom Shortcodes</li>
+          </ul> 
+          </div>
+            </Collapsible>
 
-.services-list li {
-  margin-bottom: 5rem;
-  font-size: 130%;
-}
+    <Collapsible collapsibleTitle="REST API Development" >
+       <div>
+                    <ul>
+            <li>AJAX</li>
+            <li>JavaScript: ES6+</li>
+          </ul> 
+          </div>
+            <div>
+                    <ul>
+            <li>Fetch API</li>
+            <li>Nonce</li>
+          </ul> 
+          </div>
+   </Collapsible>
+    <Collapsible collapsibleTitle="General" >
+       <div>
+                    <ul>
+            <li>Visual Studio Code</li>
+            <li>BASH/Linux</li>
+          </ul> 
+          </div>
+            <div>
+                    <ul>
+          </ul> 
+          </div>
+   </Collapsible>
+</div>
 
-.services-page-wrapper {
-  background-color: rgba(0, 30, 38, 0.95);
+</template>
+
+<style>
+  .cv-wrapper {
+   text-align: left;
+  }
+.collapsible-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap-reverse;
 }
-.service-title {
-  font-size: 150%;
-  line-height: 30px;
-}
-.service-page-title {
-  font-size: 260%;
-}
-.service-page-title,
-.service-title {
-  font-family: 'WishShore';
-  letter-spacing: 1px;
-}
-.services-page-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 25%;
-  background-color: rgb(0, 30, 38);
-  z-index: 1;
-}
-.service-description {
-  font-size: 80%;
+li {
+  width: 12rem;
   font-family: 'Ashfiana Regular';
+  font-size: 115%;
+}
+ul {
+  padding: 1rem;
 }
 </style>
+

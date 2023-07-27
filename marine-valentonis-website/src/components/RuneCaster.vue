@@ -163,13 +163,13 @@ export default defineComponent({
 
 .rune-image {
   position: absolute;
-  margin-right: 0.5rem;
   z-index: 100;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   filter: invert(100%);
-  opacity: 90%;
-  margin-left: 1rem;
+  opacity: 80%;
+  margin-left: 1.95rem;
+  margin-top: 0.75rem;
 }
 
 .rune-name {

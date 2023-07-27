@@ -30,12 +30,13 @@
 .marketplace-preview-wrapper {
   display: flex;
   justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
 }
 .marketplace-preview-wrapper iframe {
-  height: 100vh;
   border-radius: 3px;
-  margin: 1rem;
-  width: 75%;
+  height: 100vh;
 }
 #app {
   margin: 0 auto;
