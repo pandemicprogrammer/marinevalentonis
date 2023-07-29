@@ -9,20 +9,23 @@ import WebpagePreview from '@/components/WebpagePreview.vue';
 
 <template>
   <div class="projects-view-wrapper">
-    <Collapsible v-bind:collapsibleTitle="'PCT WooCommerce Suite'">
+    <Collapsible v-bind:collapsibleTitle="'Person Centered Tech'">
+      <div class="woocommerce-wrapper">
               <a class="marketplace-anchor" href="https://personcenteredtech.com/marketplace" target="_blank">Click Here To View Live
-          <WebpagePreview :url="'https://personcenteredtech.com/marketplace'" class="marketplace-preview-wrapper"/></a>
-      <div class="development-info">
-        <ul>
-          <li>Custom WooCommerce APIs</li>
-          <li>New User Toggle Filter</li>
-          <li>New Sidebar Navigation</li>
-          <li>New Custom Cart Modal</li>
-          <li>PCT WC Suite Global Site Integration</li>
-          <li>Update To Responsive Design</li>
-          <li>New Custom WooCommerce Cart</li>
-          <li>Update Marketplace From Static PHP Codebase -> Dynamic Rendering With Javascript & Custom APIs</li>
-        </ul>
+                <!-- <WebpagePreview :url="'https://personcenteredtech.com/marketplace'" class="marketplace-preview-wrapper"/> -->
+              </a>
+            <div class="development-info">
+              <ul>
+                <li>Custom WooCommerce APIs</li>
+                <li>New User Toggle Filter</li>
+                <li>New Sidebar Navigation</li>
+                <li>New Custom Cart Modal</li>
+                <li>PCT WC Suite Global Site Integration</li>
+                <li>Update To Responsive Design</li>
+                <li>New Custom WooCommerce Cart</li>
+                <li>Update Marketplace From Static PHP Codebase -> Dynamic Rendering With Javascript & Custom APIs</li>
+              </ul>
+            </div>
       </div>
     </Collapsible>
     <Collapsible collapsibleTitle="FastCast Calculator">
@@ -48,5 +51,14 @@ import WebpagePreview from '@/components/WebpagePreview.vue';
   font-size: 150%;
   text-decoration: none;
   text-align: center;
+}
+.woocommerce-wrapper {
+  display: flex;
+  flex-flow: wrap;
+  background-color: rgb(255, 255, 255, .1);
+  border-radius: 3px;
+  width: 100%;
+  justify-content: space-evenly;
+  margin: 5px;
 }
 </style>
