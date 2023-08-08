@@ -7,8 +7,8 @@ import DynamicDivFocus from '@/components/DynamicDivFocus.vue';
 import { ref } from 'vue';
 
 const items = ref([
-  { text: "Text for overlay 1", x: 100, y: 50, width: 150, height: 80 },
-  { text: "Text for overlay 2", x: 200, y: 100, width: 120, height: 60 },
+  { text: "Text for overlay 1", x: 100, y: 50, width: 50, height: 80 },
+  { text: "Text for overlay 2", x: 607, y: 88, width: 80, height: 250 },
 ]);
 </script>
 
