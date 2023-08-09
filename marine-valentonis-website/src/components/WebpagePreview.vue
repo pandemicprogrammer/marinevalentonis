@@ -1,6 +1,8 @@
 <template>
   <div>
+    
     <iframe :src="previewUrl"></iframe>
+    
   </div>
 </template>
 <script lang="ts">

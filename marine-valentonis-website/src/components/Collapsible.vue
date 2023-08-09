@@ -64,11 +64,12 @@ export default {
 .collapsible-container {
   position: relative;
   height: auto;
-  padding: 10px;
+  padding: 1rem;
   transition: background-color 0.3s ease;
 }
 
 .collapsible-header {
+  font-size: 110%;
   background-color: rgba(0, 30, 38, .8);
   justify-content: space-between;
   display: flex;
@@ -78,7 +79,6 @@ export default {
   z-index: 1;
   padding: 10px;
   cursor: pointer;
-  height: 6rem;
   transition: background-color 0.3s ease;
   border-radius: 3px;
   line-height: 26px;
@@ -95,6 +95,7 @@ export default {
 .collapsible-content {
   overflow: hidden;
   background-color: rgba(0, 30, 38);
+  color: white;
 }
 
 .collapsed .collapsible-header {

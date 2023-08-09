@@ -1,10 +1,9 @@
 <template>
   <div class="circle-container">
     <div
-      v-for="(website, index) in websites"
+      v-for="(website) in websites"
       :key="website.id"
       class="logo-container"
-      :style="logoStyle(index)"
     >
       <a :href="website.url" target="_blank" class="logo-link">
         <img :src="website.logo" :alt="website.name" class="logo-image" />
@@ -62,7 +61,9 @@ export default defineComponent({
 
 <style scoped>
 .logo-link {
-  width: 12rem;
+  width: 100%;
+  max-width: 12rem;
+  height: auto;
   border-radius: 5rem;
   display: flex;
   align-items: center;
@@ -70,7 +71,6 @@ export default defineComponent({
   flex-flow: column;
   background-color: white;
   opacity: .75;
-  scale: 95%;
   text-decoration: none;
 }
 
@@ -104,7 +104,9 @@ export default defineComponent({
 }
 
 .circle-container {
-  text-align: center;
-  display: flex;
+     text-align: center;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
 }
 </style>
