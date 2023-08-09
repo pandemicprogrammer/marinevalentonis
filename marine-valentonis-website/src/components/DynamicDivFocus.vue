@@ -3,6 +3,14 @@
     :class="['dynamic-div-focus', classModifier]"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
+    :style="{
+      '--content-x': x + 'px',
+      '--content-y': y + 'px',
+      '--content-width': width + 'px',
+      '--content-height': height + 'px',
+      '--content-x-right': x + width + 'px',
+      '--content-y-bottom': y + height + 'px'
+    }"
   >
     <div class="text-overlay" :class="{ 'hidden': !showOverlay, 'show-overlay': showOverlay }">
       <div class="text-content">
@@ -10,12 +18,7 @@
       </div>
     </div>
     <!-- Add a div for the component's content -->
-    <div
-      class="component-content"
-      :style="{ top: y + 'px', left: x + 'px', width: width + 'px', height: height + 'px' }"
-    >
-      <!-- Your component content goes here -->
-    </div>
+    <div class="component-content"></div>
   </div>
 </template>
 
@@ -57,8 +60,13 @@ function handleMouseLeave() {
   opacity: 0.8;
   transition: opacity 0.3s ease;
   z-index: 1;
-  background-color: black;
   color: white;
+  background:
+    linear-gradient(black, black) top / 100% var(--content-y),
+    linear-gradient(black, black) bottom / 100% calc(100% - var(--content-y-bottom)),
+    linear-gradient(black, black) left / var(--content-x) 100%,
+    linear-gradient(black, black) right / calc(100% - var(--content-x-right)) 100%;
+  background-repeat: no-repeat;
 }
 
 .show-overlay {
@@ -70,17 +78,7 @@ function handleMouseLeave() {
   width: 100%;
   height: 100%;
   z-index: 2;
-  
 }
 
-/* Show the overlay when component-content is hovered */
-.component-content:hover + .text-overlay {
-  display: flex;
-  opacity: 1;
-}
-
-/* Add the 'hidden' class back when component-content is not hovered */
-.component-content:not(:hover) + .text-overlay {
-  display: none;
-}
+/* Removed hover effects on component-content since they are not needed with the current approach */
 </style>
