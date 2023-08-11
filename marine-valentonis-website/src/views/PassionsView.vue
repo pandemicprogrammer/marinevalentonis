@@ -7,6 +7,9 @@ import Collapsible from '@/components/Collapsible.vue';
 
 <template>
   <div class="passion-view-wrapper">
+     <Collapsible collapsibleTitle="FastCast Calculator">
+      <WebpagePreview :url="'https://fast-cast.netlify.app'" class="marketplace-preview-wrapper"/>
+    </Collapsible>
     <Collapsible collapsibleTitle="RuneCaster">
       <RuneCaster/>
     </Collapsible>

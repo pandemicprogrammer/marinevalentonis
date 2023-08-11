@@ -31,9 +31,6 @@ import WebpagePreview from '@/components/WebpagePreview.vue';
               </a>
             </div>
     </Collapsible>
-    <Collapsible collapsibleTitle="FastCast Calculator">
-      <WebpagePreview :url="'https://fast-cast.netlify.app'" class="marketplace-preview-wrapper"/>
-    </Collapsible>
     
   </div>
 </template>

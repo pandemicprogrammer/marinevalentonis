@@ -46,8 +46,8 @@ import Collapsible from '@/components/Collapsible.vue';
                 <div>
                     <ul>
             <li>VCS: Git</li>
-            <li>CI/CD: GitLab</li>
-            <li>YAML Git Actions Build & Deployment Workflows</li>
+            <li>CI/CD</li>
+            <li>Git Actions Build & Deployment Workflows</li>
           </ul> 
           </div>
             <div>
