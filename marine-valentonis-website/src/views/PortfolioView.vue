@@ -3,32 +3,16 @@ import RuneCaster from '@/components/RuneCaster.vue';
 import Collapsible from '@/components/Collapsible.vue';
 import TeaMe from '@/components/TeaMe.vue';
 import WebpagePreview from '@/components/WebpagePreview.vue';
-import DynamicDivFocus from '@/components/DynamicDivFocus.vue';
-import { ref } from 'vue';
 
-const items = ref([
-  { text: "Text for overlay 1", x: 100, y: 50, width: 50, height: 80 },
-  { text: "Text for overlay 2", x: 607, y: 88, width: 80, height: 250 },
-]);
 </script>
 
 <template>
   <div class="projects-view-wrapper">
     <Collapsible v-bind:collapsibleTitle="'Person Centered Tech'">
       <div class="woocommerce-wrapper">
-        <img class="desktop-view-image" src="../static//images//devices/desktopMarketplaceView.png" alt="">
-         <DynamicDivFocus
-            v-for="(item, index) in items"
-            :key="index"
-            :overlayText="item.text"
-            :x="item.x"
-            :y="item.y"
-            :width="item.width"
-            :height="item.height"
-            classModifier="custom-class"
-          />
-              <a class="marketplace-anchor" href="https://personcenteredtech.com/marketplace" target="_blank">Click Here To View Live
-              </a>
+        <h1 class="woocommerce-wrapper__title">WooCommerce Suite</h1>
+        <img class="desktop-view-image" src="https://marinevalentonis.com/wp-content/themes/zeever/assets/desktopMarketplaceView.png" alt="" />
+          
             <div class="development-info">
               <ul>
                 <li>Slack API GitHub deployment integration</li>
@@ -42,7 +26,9 @@ const items = ref([
                 <li>Update Marketplace From Static PHP Codebase -> Dynamic Rendering With Javascript & Custom APIs</li>
               </ul>
             </div>
-      </div>
+             <a class="marketplace-anchor" href="https://personcenteredtech.com/marketplace" target="_blank">Click Here To View Live
+              </a>
+            </div>
     </Collapsible>
     <Collapsible collapsibleTitle="FastCast Calculator">
       <WebpagePreview :url="'https://fast-cast.netlify.app'" class="marketplace-preview-wrapper"/>
@@ -62,11 +48,13 @@ const items = ref([
 }
 .development-info {
   color: white;
+  width: 50%;
 }
 .marketplace-anchor {
   font-size: 150%;
   text-decoration: none;
   text-align: center;
+  width: 100%;
 }
 .woocommerce-wrapper {
   display: flex;
@@ -78,6 +66,17 @@ const items = ref([
   margin: 5px;
 }
 .desktop-view-image {
+  width: 50%;
+  height: fit-content;
+}
+.woocommerce-wrapper li {
+  font-size: 90%;
+}
+.woocommerce-wrapper__title {
+  font-family: 'Blankers';
   width: 100%;
+  font-style: italic;
+  text-align: center;
+  opacity: 80%;
 }
 </style>

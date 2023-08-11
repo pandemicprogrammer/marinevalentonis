@@ -117,7 +117,7 @@ import Collapsible from '@/components/Collapsible.vue';
   justify-content: space-around;
   flex-wrap: wrap-reverse;
 }
-li {
+.services-page-wrapper li {
   width: 12rem;
   font-family: 'Ashfiana Regular';
   font-size: 115%;

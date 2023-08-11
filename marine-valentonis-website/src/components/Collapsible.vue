@@ -107,6 +107,7 @@ export default {
   font-family: 'WishShore';
   color: white;
   width: 100%;
+  font-weight: 400;
 }
 
 .item-list {
