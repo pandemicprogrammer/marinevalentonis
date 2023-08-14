@@ -103,11 +103,12 @@ export default {
 }
 
 .collapsible-title {
-  margin-left: 5%;
-  font-family: 'WishShore';
-  color: white;
+  margin-left: 1rem;
+  font-family: Fogato;
+  color: #fff;
+  font-size: 225%;
   width: 100%;
-  font-weight: 400;
+  font-weight: 900;
 }
 
 .item-list {
