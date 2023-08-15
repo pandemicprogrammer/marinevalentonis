@@ -103,7 +103,6 @@ import Collapsible from '@/components/Collapsible.vue';
 }
 .development-info {
   color: white;
-  width: 50%;
   display: flex;
   align-items: center;
 }

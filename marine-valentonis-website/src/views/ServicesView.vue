@@ -101,18 +101,21 @@ import Collapsible from '@/components/Collapsible.vue';
     letter-spacing: 1px;
     font-weight: 900;
   }
-  .skill-list {
-    width: 50%;
-    padding: 1rem;
-  }
+  
   .skills-wrapper {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    padding: 1rem;
   }
   .skill-list__title {
     font-size: 125%;
     font-family: 'Blankers';
+    margin-top: 2rem;
+  }
+  ul {
+    background-color: rgb(255,255,255,.1);
+    border-radius: 3px;
   }
 </style>
